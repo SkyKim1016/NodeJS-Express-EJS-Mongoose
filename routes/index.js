@@ -4,6 +4,12 @@
 */
 
 module.exports = function (app, Tag, Log) {
+  //Initial Index page loading
+  app.get('', (req,res) => res.send('login',{
+
+  }))
+    
+
   app.post('/api/regTagByUid', function (req, res) {
     var tag = new Tag();
     tag.uid = req.body.uid;

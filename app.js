@@ -15,8 +15,7 @@ const chalk       = require('chalk'); // For consol log color
 const morgan      = require('morgan'); // For printing URL which called REST from website 
 const hbs         = require('hbs'); // For printing javascript variables in client files which are .hbs in public directory 
 
-require('dotenv').config()  // .env file which inluded Mongodb connect URL and Port load 
-
+require('dotenv').config()  // loads .env file which inluded Mongodb connect URL and Port 
 
 
 // [ CONFIGURE mongoose ]
