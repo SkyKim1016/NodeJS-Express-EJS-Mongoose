@@ -17,7 +17,6 @@ const hbs         = require('hbs'); // For printing javascript variables in clie
 
 require('dotenv').config()  // loads .env file which inluded Mongodb connect URL and Port 
 
-
 // [ CONFIGURE mongoose ]
 
 // CONNECT TO MONGODB SERVER
@@ -35,20 +34,34 @@ mongoose.connect('mongodb://localhost/smartCoinDB', {
     useUnifiedTopology:true
 }).then( ()=> console.log(chalk.blue.bold('Connected to mongoDB server')) )
 
-// DEFINE MODEL
-var Tag = require('./models/tag');
-var Log = require('./models/log');
+
+// [ CONFIGURE .hbs view engine ]
+const publicDirectoryPath = path.join(__dirname, '/public/')
+app.use(express.static(publicDirectoryPath))
+    .set('views',publicDirectoryPath) // Setting handlebar engine and views location
+    .set('view engine', 'hbs')
+ 
+hbs.registerPartials(publicDirectoryPath+ '/partials') // For deviding and registing header and footer on .hbs files 
+
 
 // [CONFIGURE APP TO USE bodyParser]
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use(morgan('dev')); // For printing requested RESTFUL URL on console 
+
+
+// [ CONFIGURE .hbs view engine ]
+
 
 // [CONFIGURE SERVER PORT]
 
 var port = process.env.PORT || 8080;
 
 // [CONFIGURE ROUTER]
-var router = require('./routes')(app, Tag, Log);
+// var router = require('./routes')(app, Tag, Log);
+const router = require('./routes/index')
+app.use(router);
 
 // [RUN SERVER]
 var server = app.listen(port, function(){
