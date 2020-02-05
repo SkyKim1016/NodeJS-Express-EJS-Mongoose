@@ -51,17 +51,16 @@ app.use(bodyParser.json());
 app.use(morgan('dev')); // For printing requested RESTFUL URL on console 
 
 
-// [ CONFIGURE .hbs view engine ]
-
-
-// [CONFIGURE SERVER PORT]
-
-var port = process.env.PORT || 8080;
 
 // [CONFIGURE ROUTER]
 // var router = require('./routes')(app, Tag, Log);
 const router = require('./routes/index')
 app.use(router);
+
+
+// [CONFIGURE SERVER PORT]
+var port = process.env.PORT || 8080;
+
 
 // [RUN SERVER]
 var server = app.listen(port, function(){

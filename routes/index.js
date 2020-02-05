@@ -10,10 +10,14 @@ const Log = require('../models/log');
 const router = new express.Router();
 const chalk = require('chalk');
 
-router.get('/', (req,res) => res.render('login',{
+// router.get('/', (req,res) => res.render('login',{
 
-  }))
+//   }))
     
+
+router.get('/', (req,res) => res.render('list',{
+
+}))
 
 router.post('/api/regTagByUid', function (req, res) {
   var tag = new Tag();
