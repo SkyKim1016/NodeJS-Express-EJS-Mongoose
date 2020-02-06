@@ -203,13 +203,102 @@ li a:hover {
 
 /************************************/
 
-.div_body_container2 {
-  width: 1280px;
+.body_container2 {
+  width: 1280px !important;
   height: 678px;
   border-radius: 5px;
   margin-top: 23px;
   border: solid 1px #e2e5e7;
   background-color: #ffffff;
+
 }
 
+.body_container2_div1 {
+  width: 1050px;
+  height: 46px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: stretch;
+}
+
+.body_container2_div_span {
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #111111;
+  vertical-align: bottom;
+}
+
+.body_container2_div2 {
+  width: 1050px;
+  height: 46px;
+  border-radius: 5px;
+  border: solid 1px #eaeaea;
+  background-color: #f6f6f6;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 5px;
+
+}
+
+.body_container2_div2_span {
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.14;
+  letter-spacing: 0.28px;
+  color: #424242;
+  vertical-align: bottom;
+}
+
+
+.body_container2_div3 {
+  width: 1050px;
+  height: 46px;
+  margin-top:5px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+  border: solid 1px #eaeaea;
+  background-color: #ffffff;
+  padding-top: 5px;
+}
+
+.body_container2_div3_span {
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.14;
+  letter-spacing: 0.28px;
+  color: #424242;
+  
+}
+
+.body_container2_div3_span_button {
+  width: 88px;
+  height: 30px;
+  background-color: #22ce8b;
+
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.14;
+  letter-spacing: 0.28px;
+  text-align: center;
+  color: #ffffff;
+
+  vertical-align: middle;
+  margin-left: auto;
+
+  border-radius: 5px;
+  border:0;
+
+}
 /**********************************/
