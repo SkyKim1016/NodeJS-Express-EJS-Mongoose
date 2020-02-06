@@ -1,7 +1,11 @@
 body {
   background-color: #f1f5f5;
+  margin: 0;
+  padding: 0;
 }
 
+
+/************************************/
 .nav1 {
   background-color: #438afe;
   height: 60px;
@@ -24,6 +28,7 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  
 }
 
 li {
@@ -75,12 +80,14 @@ li a:hover {
   cursor:pointer;
 }
 
+/* */
 
 .nav2_ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
+  display:inline-block;
 }
 
 .nav2_li {
@@ -88,11 +95,11 @@ li a:hover {
   border-radius: 5px;
   border: solid 1px #d0d4d7;
   background-color: #ffffff;
+  margin: 0;
+  padding: 0;
 }
 
 .nav2_li_a {
-  padding: 14px 16px;
-
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
@@ -103,3 +110,106 @@ li a:hover {
   text-align: center;
   color: #424242;
 }
+
+.nav2_span {
+  width: 395px;
+  height: 34px;
+  border-radius: 5px;
+  border: solid 1px #d0d4d7;
+  background-color: #ffffff;
+}
+
+.nav2_ul_li_calendar {
+  width: 49px;
+  height: 33px;
+  border-radius: 4.4px;
+  background-color: #d0d4d7;
+  margin:0;
+  padding:0;
+}
+
+.nav2_ul_li_calendar_images {
+  width: 18px;
+  height: 19px;
+  object-fit: contain;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
+.nav2_ul_input {
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #424242;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  height: 34px;
+
+  text-align: center;
+}
+
+.nav2_ul_li_button {
+  width: 90px;
+  height: 34px;
+  border-radius: 5px;
+  background-color: #3e8be8;
+
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+/************************************/
+
+.div_body_container {
+  width: 1280px;
+  height: 86px;
+  border-radius: 5px;
+  margin-top: 23px;
+  border: solid 1px #e2e5e7;
+  background-color: #ffffff;
+}
+
+
+.div_body_container_div_span {
+  width: 126px;
+  height: 24px;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  color: #989da0;
+}
+
+.div_body_container_div_span2 {
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 0.92;
+  letter-spacing: normal;
+  color: #111111;
+}
+
+/************************************/
+
+.div_body_container2 {
+  width: 1280px;
+  height: 678px;
+  border-radius: 5px;
+  margin-top: 23px;
+  border: solid 1px #e2e5e7;
+  background-color: #ffffff;
+}
+
+/**********************************/
