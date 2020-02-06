@@ -7,6 +7,11 @@ body {
   height: 60px;
 }
 
+.nav2 {
+  background-color: #f8fafb;
+  height: 60px;
+}
+
 .ic_smartcoin_logo{
   width: 130px;
   height: 29px;
@@ -66,4 +71,35 @@ li a:hover {
   letter-spacing: normal;
   text-align: center;
   color: #ffffff;
+
+  cursor:pointer;
+}
+
+
+.nav2_ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.nav2_li {
+  display:inline-block;
+  border-radius: 5px;
+  border: solid 1px #d0d4d7;
+  background-color: #ffffff;
+}
+
+.nav2_li_a {
+  padding: 14px 16px;
+
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  text-align: center;
+  color: #424242;
 }

@@ -41,14 +41,14 @@ app.use(express.static(publicDirectoryPath))
     .set('views',publicDirectoryPath) // Setting handlebar engine and views location
     .set('view engine', 'hbs')
  
-hbs.registerPartials(publicDirectoryPath+ '/partials') // For deviding and registing header and footer on .hbs files 
+hbs.registerPartials(publicDirectoryPath+ '/partials') // For deviding and registing header and footer in .hbs files 
 
 
 // [CONFIGURE APP TO USE bodyParser]
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(morgan('dev')); // For printing requested RESTFUL URL on console 
+app.use(morgan('dev')); // For printing that requested RESTFUL URL on console 
 
 
 
@@ -59,7 +59,7 @@ app.use(router);
 
 
 // [CONFIGURE SERVER PORT]
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8000;
 
 
 // [RUN SERVER]
