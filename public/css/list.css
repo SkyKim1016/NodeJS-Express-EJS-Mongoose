@@ -23,7 +23,7 @@ body {
 
 }
 
-ul {
+.nav1_ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -41,8 +41,12 @@ li a {
   text-decoration: none;
 }
 
-li a:hover {
-  background-color: rgba(0, 0, 0, 0.15);
+a:hover {
+  text-decoration: none;
+}
+
+.mouse_cursor:hover {
+  cursor:pointer;
 }
 
 .nav_href_text{
@@ -165,6 +169,8 @@ li a:hover {
   letter-spacing: normal;
   text-align: center;
   color: #ffffff;
+
+  cursor: pointer;
 }
 
 /************************************/
@@ -299,6 +305,8 @@ li a:hover {
 
   border-radius: 5px;
   border:0;
+
+  cursor: pointer;
 
 }
 /**********************************/
