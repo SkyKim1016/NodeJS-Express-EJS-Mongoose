@@ -13,6 +13,8 @@
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/list.css">
 	<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 </head>
 
 <body>
@@ -40,7 +42,7 @@
 		</div>
 	</nav>
 
-	<nav class="navbar sticky-top nav2" style="z-index: 998;">
+	{{!-- <nav class="navbar sticky-top nav2" style="z-index: 998;">
 		<div class="container ">
 			<ul class="nav2_ul">
 				<li class="nav2_li">	
@@ -71,7 +73,7 @@
 				</li>
 			</ul>
 		</div>
-	</nav>
+	</nav> --}}
 
 
 	<div class="container div_body_container" >
@@ -109,10 +111,14 @@
 		{{#each logObject }}
 		<div class="body_container2_div3">
 			<span class="body_container2_div3_span" style="margin-left:45px;">{{this.indexNumber}}</span>
-			<span class="body_container2_div3_span" style="margin-left:148px;">{{this.timestamp}} 기준</span>
-			<span class="body_container2_div3_span" style="margin-left:70px;">신규9+충전10</span>
-			<span class="body_container2_div3_span" style="margin-left:97px;">{{this.amount}}(99,000)</span>
-			<span class="body_container2_div3_span" style="margin-left:175px; vertical-align: bottom;"><button class="body_container2_div3_span_button">신용카드</button></span>
+
+			<span id="timestamp{{@index}}" class="body_container2_div3_span_timestamp" style="margin-left:148px;"> 
+				{{this.timestampFormat }}
+			</span>
+
+			<span class="body_container2_div3_span" style="margin-left:70px;"> 신규</span>
+			<span class="body_container2_div3_span" style="margin-left:97px;">{{this.amount}} ({{this.bonusPoint}})</span>
+			<span class="body_container2_div3_span" style="margin-left:175px; vertical-align: bottom;"><button class="body_container2_div3_span_button">{{this.payment.type}}</button></span>
 		</div>
 		{{/each}}
 
@@ -122,12 +128,28 @@
 	</div>
 
 
+
 	<!--===============================================================================================-->
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+
+	<!--===============================================================================================-->
+
 	<!--===============================================================================================-->
 	<script src="vendor/bootstrap/js/popper.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 	<!--===============================================================================================-->
+{{!-- 
+	<script>
+		$(document).ready(function(){
+
+			$('.body_container2_div3_span_timestamp').each( function(index) {
+				timestamp =	$("#timestamp"+index).innerHTML
+				timestampFormat = moment(timestamp).format('YYYY.MM.DD HH:MM')
+
+				$('#timestamp'+index).text(timestampFormat)
+			})
+		});
+
+	</script>	 --}}
 
 </body>
 
