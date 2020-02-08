@@ -1,6 +1,6 @@
 /*
-* 2020, Goorumlabs
-* By EUNGJU
+* 2020, Goorumlabs 
+* By EUNGJU and Sky
 */
 
 // server.js
@@ -54,9 +54,11 @@ app.use(morgan('dev')); // For printing that requested RESTFUL URL on console
 
 // [CONFIGURE ROUTER]
 // var router = require('./routes')(app, Tag, Log);
-const router = require('./routes/index')
-app.use(router);
+const api = require('./routes/api')
+const index = require('./routes/index')
 
+app.use(api);
+app.use(index);
 
 // [CONFIGURE SERVER PORT]
 var port = process.env.PORT || 8000;

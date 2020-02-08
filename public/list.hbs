@@ -16,11 +16,11 @@
 </head>
 
 <body>
-	<nav class="navbar sticky-top nav1" >
-		<div class="container">
+	<nav class="navbar sticky-top nav1" style="z-index: 999;">
+		<div class="container ">
 			<ul class="nav1_ul">
 				<li class="nav1_li">
-					<a href="#" > <img src="images/ic-smartcoin-logo@2x.png" class="ic_smartcoin_logo" > </a>
+					<a href="/" > <img src="images/ic-smartcoin-logo@2x.png" class="ic_smartcoin_logo" > </a>
 				</li>
 				<li >	
 					<a href="#" >매출조회</a>
@@ -40,8 +40,8 @@
 		</div>
 	</nav>
 
-	<nav class="navbar sticky-top nav2 text-center" >
-		<div class="container">
+	<nav class="navbar sticky-top nav2" style="z-index: 998;">
+		<div class="container ">
 			<ul class="nav2_ul">
 				<li class="nav2_li">	
 					<a href="#" class="nav2_li_a">거래별 매출</a>
@@ -53,7 +53,6 @@
 					<a href="#" class="nav2_li_a">월별 매출</a>
 				</li>
 			</ul>			
-
 			<ul>
 				<li class="nav2_ul_li_calendar">
 					<img src="images/ic-calendar.png" class="nav2_ul_li_calendar_images"  srcset="images/ic-calendar@2x.png 2x, images/ic-calendar@3x.png 3x">
@@ -73,6 +72,7 @@
 			</ul>
 		</div>
 	</nav>
+
 
 	<div class="container div_body_container" >
 		<div style="margin-top: 16px;">
@@ -105,76 +105,17 @@
 			<span class="body_container2_div2_span" style="margin-left:97px;">990,000(99,000)</span>
 			<span class="body_container2_div2_span" style="margin-left:175Px;">신4/현4/쿠1/관1</span>
 		</div>
+		
+		{{#each logObject }}
 		<div class="body_container2_div3">
-			<span class="body_container2_div3_span" style="margin-left:45px;">10</span>
-			<span class="body_container2_div3_span" style="margin-left:148px;">2020.01.01.13:12 기준</span>
+			<span class="body_container2_div3_span" style="margin-left:45px;">{{this.indexNumber}}</span>
+			<span class="body_container2_div3_span" style="margin-left:148px;">{{this.timestamp}} 기준</span>
 			<span class="body_container2_div3_span" style="margin-left:70px;">신규9+충전10</span>
-			<span class="body_container2_div3_span" style="margin-left:97px;">990,000(99,000)</span>
+			<span class="body_container2_div3_span" style="margin-left:97px;">{{this.amount}}(99,000)</span>
 			<span class="body_container2_div3_span" style="margin-left:175px; vertical-align: bottom;"><button class="body_container2_div3_span_button">신용카드</button></span>
 		</div>
-		<div class="body_container2_div3">
-			<span class="body_container2_div3_span" style="margin-left:45px;">9</span>
-			<span class="body_container2_div3_span" style="margin-left:155px;">2020.01.01.13:12 기준</span>
-			<span class="body_container2_div3_span" style="margin-left:70px;">신규9+충전10</span>
-			<span class="body_container2_div3_span" style="margin-left:97px;">990,000(99,000)</span>
-			<span class="body_container2_div3_span" style="margin-left:175px; vertical-align: bottom;"><button class="body_container2_div3_span_button" style="background-color: #3bb3ff;">현금</button></span>
-		</div>
-		<div class="body_container2_div3">
-			<span class="body_container2_div3_span" style="margin-left:45px;">8</span>
-			<span class="body_container2_div3_span" style="margin-left:155px;">2020.01.01.13:12 기준</span>
-			<span class="body_container2_div3_span" style="margin-left:70px;">신규9+충전10</span>
-			<span class="body_container2_div3_span" style="margin-left:97px;">990,000(99,000)</span>
-			<span class="body_container2_div3_span" style="margin-left:175px; vertical-align: bottom;"><button class="body_container2_div3_span_button" style="background-color: #3bb3ff;">현금</button></span>
-		</div>
-		<div class="body_container2_div3">
-			<span class="body_container2_div3_span" style="margin-left:45px;">7</span>
-			<span class="body_container2_div3_span" style="margin-left:155px;">2020.01.01.13:12 기준</span>
-			<span class="body_container2_div3_span" style="margin-left:70px;">신규9+충전10</span>
-			<span class="body_container2_div3_span" style="margin-left:97px;">990,000(99,000)</span>
-			<span class="body_container2_div3_span" style="margin-left:175px; vertical-align: bottom;"><button class="body_container2_div3_span_button" style="background-color: #ffbb0d;">쿠폰</button></span>
-		</div>
-		<div class="body_container2_div3">
-			<span class="body_container2_div3_span" style="margin-left:45px;">6</span>
-			<span class="body_container2_div3_span" style="margin-left:155px;">2020.01.01.13:12 기준</span>
-			<span class="body_container2_div3_span" style="margin-left:70px;">신규9+충전10</span>
-			<span class="body_container2_div3_span" style="margin-left:97px;">990,000(99,000)</span>
-			<span class="body_container2_div3_span" style="margin-left:175px; vertical-align: bottom;"><button class="body_container2_div3_span_button" style="background-color: #ffbb0d;">쿠폰</button></span>
-		</div>
-		<div class="body_container2_div3">
-			<span class="body_container2_div3_span" style="margin-left:45px;">5</span>
-			<span class="body_container2_div3_span" style="margin-left:155px;">2020.01.01.13:12 기준</span>
-			<span class="body_container2_div3_span" style="margin-left:70px;">신규9+충전10</span>
-			<span class="body_container2_div3_span" style="margin-left:97px;">990,000(99,000)</span>
-			<span class="body_container2_div3_span" style="margin-left:175px; vertical-align: bottom;"><button class="body_container2_div3_span_button" style="background-color: #fc7777;">관리자</button></span>
-		</div>
-		<div class="body_container2_div3">
-			<span class="body_container2_div3_span" style="margin-left:45px;">4</span>
-			<span class="body_container2_div3_span" style="margin-left:155px;">2020.01.01.13:12 기준</span>
-			<span class="body_container2_div3_span" style="margin-left:70px;">신규9+충전10</span>
-			<span class="body_container2_div3_span" style="margin-left:97px;">990,000(99,000)</span>
-			<span class="body_container2_div3_span" style="margin-left:175px; vertical-align: bottom;"><button class="body_container2_div3_span_button" style="background-color: #fc7777;">관리자</button></span>
-		</div>
-		<div class="body_container2_div3">
-			<span class="body_container2_div3_span" style="margin-left:45px;">3</span>
-			<span class="body_container2_div3_span" style="margin-left:155px;">2020.01.01.13:12 기준</span>
-			<span class="body_container2_div3_span" style="margin-left:70px;">신규9+충전10</span>
-			<span class="body_container2_div3_span" style="margin-left:97px;">990,000(99,000)</span>
-			<span class="body_container2_div3_span" style="margin-left:175px; vertical-align: bottom;"><button class="body_container2_div3_span_button">신용카드</button></span>
-		</div>
-		<div class="body_container2_div3">
-			<span class="body_container2_div3_span" style="margin-left:45px;">2</span>
-			<span class="body_container2_div3_span" style="margin-left:155px;">2020.01.01.13:12 기준</span>
-			<span class="body_container2_div3_span" style="margin-left:70px;">신규9+충전10</span>
-			<span class="body_container2_div3_span" style="margin-left:97px;">990,000(99,000)</span>
-			<span class="body_container2_div3_span" style="margin-left:175px; vertical-align: bottom;"><button class="body_container2_div3_span_button">신용카드</button></span>
-		</div>
-		<div class="body_container2_div3">
-			<span class="body_container2_div3_span" style="margin-left:45px;">1</span>
-			<span class="body_container2_div3_span" style="margin-left:155px;">2020.01.01.13:12 기준</span>
-			<span class="body_container2_div3_span" style="margin-left:70px;">신규9+충전10</span>
-			<span class="body_container2_div3_span" style="margin-left:97px;">990,000(99,000)</span>
-			<span class="body_container2_div3_span" style="margin-left:175px; vertical-align: bottom;"><button class="body_container2_div3_span_button">신용카드</button></span>
-		</div>
+		{{/each}}
+
 		<div class="body_container2_div2" style="text-align: center; margin-top:5px; vertical-align:middle;">
 			<span class="mouse_cursor" >+더보기</span>
 		</div>

@@ -1,0 +1,50 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+body {
+    margin:0;
+    padding:0;
+    font-family: "NotoSansKR", sans-serif !important;;
+}
+
+.header{
+    background-color: #438afe; 
+    height: 60px;
+    width:100%;
+}
+
+.header_align{
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.header_left{
+    float: left;
+}
+
+.header_right{
+    float: right;
+    vertical-align: middle;
+}
+
+.header_span_text{
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
+    
+}
+
+img.header_image_logo{
+    margin-top: 10%;
+    display: block;    
+}
+
+
+img.header_image_kakao{
+  width: 120px;
+  height: 34px;
+
+}

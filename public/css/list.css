@@ -8,7 +8,9 @@ body {
 /************************************/
 .nav1 {
   background-color: #438afe;
+  width: 100%;
   height: 60px;
+
 }
 
 .nav2 {
