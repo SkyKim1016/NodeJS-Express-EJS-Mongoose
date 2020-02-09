@@ -14,7 +14,9 @@
 	<link rel="stylesheet" type="text/css" href="css/list.css">
 	<!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+
 </head>
 
 <body>
@@ -42,7 +44,7 @@
 		</div>
 	</nav>
 
-	{{!-- <nav class="navbar sticky-top nav2" style="z-index: 998;">
+	<nav class="navbar sticky-top nav2" style="z-index: 998;">
 		<div class="container ">
 			<ul class="nav2_ul">
 				<li class="nav2_li">	
@@ -73,7 +75,7 @@
 				</li>
 			</ul>
 		</div>
-	</nav> --}}
+	</nav>
 
 
 	<div class="container div_body_container" >
@@ -84,10 +86,10 @@
 			<span class="div_body_container_div_span" style="margin-left:209px;" >카드 매출</span>
 		</div>
 		<div style="margin-top: 5px;">
-			<span class="div_body_container_div_span2" style="margin-left:40px;">19 건</span>
-			<span class="div_body_container_div_span2" style="margin-left:141px;">990,000 원</span>
-			<span class="div_body_container_div_span2" style="margin-left:133px;">800,000 원 </span>
-			<span class="div_body_container_div_span2" style="margin-left:149px;" >190,000 원</span>
+			<span class="div_body_container_div_span2" style="margin-left:40px;">{{documentCount}} 건</span>
+			<span class="div_body_container_div_span2" style="margin-left:141px;">{{totalAmount}} 원</span>
+			<span class="div_body_container_div_span2" style="margin-left:133px;">{{cashAmount}} 원 </span>
+			<span class="div_body_container_div_span2" style="margin-left:149px;" >{{cardAmount}} 원</span>
 		</div>
 	</div>
 
