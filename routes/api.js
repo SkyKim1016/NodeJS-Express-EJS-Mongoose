@@ -4,13 +4,11 @@
 */
 
 const express = require('express');
+const router = new express.Router();
+
 // DEFINE MODEL
 const Tag = require('../models/tag');
 const Log = require('../models/log');
-const router = new express.Router();
-
-//Console log color printing 
-const chalk = require('chalk');
 
 
 
