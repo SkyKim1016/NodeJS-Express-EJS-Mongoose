@@ -4,12 +4,13 @@
 */
 
 const express = require('express');
-// DEFINE MODEL
-const Tag = require('../models/tag');
-const Log = require('../models/log');
 const router = new express.Router();
 const chalk = require('chalk');
 const moment = require('moment')
+
+// DEFINE MODEL
+const Tag = require('../models/tag');
+const Log = require('../models/log');
 
 
 // router.get('/', (req,res) => res.render('login',{
@@ -17,11 +18,11 @@ const moment = require('moment')
 //   }))
     
 
-router.get('/', (req,res) => res.render('landing',{
+// router.get('/', (req,res) => res.render('landing',{
 
-}))
+// }))
 
-router.get('/list', async(req,res) => {
+router.get('/', async(req,res) => {
 
     let totalAmount=0 , cashAmount=0 , cardAmount=0
     let DocumentCount=0
