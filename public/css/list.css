@@ -183,13 +183,40 @@ a:hover {
 
 /************************************/
 
-.div_body_container {
+.background_div {
   width: 1280px;
-  height: 86px;
+  height: auto;
   border-radius: 5px;
-  margin-top: 23px;
-  border: solid 1px #e2e5e7;
+  padding-left:0; 
+  padding-right:0;
+  /* border: solid 1px #e2e5e7; */
   background-color: #ffffff;
+}
+
+
+.table_body {
+  width: 1100px;
+  height: auto;
+  min-height:68px;
+  border-radius: 5px !important;
+  margin-top: 23px;
+  padding-bottom: 23px;
+  /* border: solid 1px #e2e5e7; */
+  /* background-color: #bdbbbb; */
+
+  border-collapse: collapse;
+  border: 0;
+  border-width: 0;
+   
+
+}
+
+.noborder{
+ border:0;
+}
+
+.td_leftPadding{
+  padding-left:50px;
 }
 
 .table1_title_font{
@@ -235,25 +262,6 @@ a:hover {
 
 /************************************/
 
-.table_body {
-  /* width: 1280px; */
-  height: auto;
-  border-radius: 5px !important;
-  margin-top: 23px;
-  padding-bottom: 23px;
-  /* border: solid 1px #e2e5e7; */
-  background-color: #ffffff;
-
-  border-collapse: collapse;
-  border: 0;
-  border-width: 0;
-   
-
-}
-
-.noborder{
- border:0;
-}
 
 
 .payment_button {
