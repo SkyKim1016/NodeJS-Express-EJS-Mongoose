@@ -13,11 +13,11 @@ const Tag = require('../models/tag');
 const Log = require('../models/log');
 
 
-// router.get('/', (req,res) => res.render('landing',{
+router.get('/', (req,res) => res.render('landing',{
 
-// }))
+}))
 
-router.get('/', async(req,res) => {
+router.get('/list', async(req,res) => {
 
     let totalAmount=0 , cashAmount=0 , cardAmount=0
     let DocumentCount=0
