@@ -17,6 +17,10 @@ router.get('/', (req,res) => res.render('landing',{
 
 }))
 
+router.get('/login', (req,res) => res.render('login',{
+
+}))
+
 router.get('/list', async(req,res) => {
 
     let totalAmount=0 , cashAmount=0 , cardAmount=0
