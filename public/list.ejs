@@ -117,7 +117,7 @@
 					<tr scope="row" class="table_body_text">
 						<td align="center" style="vertical-align: middle;"> <%= logObject[i].indexNumber %></td>
 						<td align="center" style="vertical-align: middle;"><%= logObject[i].timestampFormat %></td>
-						<td align="center" style="vertical-align: middle;"> ABCDE312 </td>
+						<td align="center" style="vertical-align: middle;"> <%= logObject[i].uid %></td>
 						<td align="center" style="vertical-align: middle;"> 신규 </td>
 						<td align="center" style="vertical-align: middle;"> <%= logObject[i].amount %> <span style="color: #999999;">(<%= logObject[i].bonusPoint%> ) </span> </td>
 						<td align="center" style="vertical-align: middle;">
@@ -135,7 +135,7 @@
 						</td>
 					</tr>
 					<% } %>
-					<tr style="border-radius: 10px;background-color: #eaeeef; padding-bottom:5px; margin-bottom:5px;">
+					<tr style="border-radius: 10px;background-color: #eaeeef; padding-bottom:5px; margin-bottom:5px; height:46px;">
 						<td colspan="6" align="center" class="mouse_cursor"> + 더보기 </td>
 					</tr>
 				</tbody>
