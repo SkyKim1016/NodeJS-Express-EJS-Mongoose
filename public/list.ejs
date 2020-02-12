@@ -136,7 +136,7 @@
 					</tr>
 					<% } %>
 					<tr style="border-radius: 10px;background-color: #eaeeef; padding-bottom:5px; margin-bottom:5px; height:46px;">
-						<td colspan="6" align="center" class="mouse_cursor"> + 더보기 </td>
+						<td colspan="6" align="center" class="mouse_cursor" onClick="pageLimit();"> + 더보기 </td>
 					</tr>
 				</tbody>
 
@@ -151,6 +151,10 @@
 	<!--===============================================================================================-->
 
 	<script>
+		function pageLimit(){
+			currentPageLimit = <%= pageLimit %> + 10
+			location.href = "/list?pageLimit="+currentPageLimit;
+		}
 		/*
 		$(document).ready(function () {
 

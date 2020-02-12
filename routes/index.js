@@ -35,7 +35,7 @@ router.get('/list', async(req,res) => {
         //This is counting of record
         documentCount = await Log.find({}).countDocuments()
 
-        // This is for sum calculating of total amount and cash and creditCard
+        // This is for cumulative calculating of total amount and cash and creditCard
         let totalAmountObject = await Log.find({}).sort({timestamp: -1})
         for(index in totalAmountObject){
             totalAmount += totalAmountObject[index].amount
