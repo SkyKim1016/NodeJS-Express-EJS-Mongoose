@@ -121,7 +121,7 @@
 						<td align="center" style="vertical-align: middle;"> 신규 </td>
 						<td align="center" style="vertical-align: middle;"> <%= logObject[i].amount %> <span style="color: #999999;">(<%= logObject[i].bonusPoint%> ) </span> </td>
 						<td align="center" style="vertical-align: middle;">
-							<% if(logObject[i].payment.type == "카드" ) { %>
+							<% if(logObject[i].payment.type == "신용카드" ) { %>
 								<button class="payment_button color_card %> ">
 							<% } else if (logObject[i].payment.type == "쿠폰" ) { %>
 								<button class="payment_button color_coupon %> ">
@@ -151,8 +151,6 @@
 	<!--===============================================================================================-->
 
 	<script>
-		
-		{}
 		/*
 		$(document).ready(function () {
 

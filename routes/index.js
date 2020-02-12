@@ -36,7 +36,7 @@ router.get('/list', async(req,res) => {
 
         for(index in logObject){
            
-            logObject[index].timestampFormat = moment(logObject[index].timestamp).format('YYYY-MM-DD HH:MM:SS') 
+            logObject[index].timestampFormat = moment(logObject[index].timestamp).format('YYYY/MM/DD HH:MM:SS') 
 
             totalAmount += logObject[index].amount
 
@@ -47,7 +47,7 @@ router.get('/list', async(req,res) => {
 
             } 
             if(logObject[index].payment.type === 'creditCard'){
-                logObject[index].payment.type = '카드'
+                logObject[index].payment.type = '신용카드'
                 cardAmount+= logObject[index].amount
             }
             if(logObject[index].payment.type === 'coupon'){
