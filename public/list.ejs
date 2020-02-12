@@ -6,7 +6,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!--===============================================================================================-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+		integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 	<!--===============================================================================================-->
@@ -18,14 +19,19 @@
 	<!--===============================================================================================-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 	<!--======================================= Calendar ==============================================-->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>	
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
 
 
 
 </head>
 
-<body>
+<body onload="loadingDelay();">
+
+
+
 	<nav class="navbar sticky-top nav1" style="z-index: 999;">
 		<div class="container ">
 			<ul class="nav1_ul">
@@ -68,7 +74,7 @@
 					<input id="datepicker" class="dp" />
 					<script>
 						$('#datepicker').datepicker();
-					</script> 
+					</script>
 				</li>
 				<li>
 					<button class="nav2_ul_li_button" id="calendarbutton" onclick=""> 조회 </button>
@@ -77,9 +83,11 @@
 		</div>
 	</nav>
 
+	<div id="loader"></div>
 
-		
-		<div class="container background_div" > 
+	<div id="tableWrapper" class="animate-bottom">
+
+		<div class="container background_div">
 			<table class="table table-borderless table_body">
 				<thead>
 					<tr class="table1_title_font">
@@ -100,7 +108,7 @@
 			</table>
 		</div>
 
-		<div class="container background_div" align="center"  > 
+		<div class="container background_div" align="center">
 			<table id="table_content" class="table table-borderless table_body" style="min-height:678px;">
 				<thead>
 					<tr class="table2_title_font">
@@ -108,7 +116,9 @@
 						<td align="center" scope="col" style="border: 0;">매출일시</td>
 						<td align="center" scope="col" style="border: 0;">고유번호</td>
 						<td align="center" scope="col" style="border: 0;">구분</td>
-						<td align="center" scope="col" style="border: 0;">결제금액 <span style="color: #999999;">(추가포인트)</span></td>
+						<td align="center" scope="col" style="border: 0;">결제금액 <span
+								style="color: #999999;">(추가포인트)</span>
+						</td>
 						<td align="center" scope="col" style="border: 0;">결제수단</td>
 					</tr>
 				</thead>
@@ -119,30 +129,32 @@
 						<td align="center" style="vertical-align: middle;"><%= logObject[i].timestampFormat %></td>
 						<td align="center" style="vertical-align: middle;"> <%= logObject[i].uid %></td>
 						<td align="center" style="vertical-align: middle;"> 신규 </td>
-						<td align="center" style="vertical-align: middle;"> <%= logObject[i].amount %> <span style="color: #999999;">(<%= logObject[i].bonusPoint%> ) </span> </td>
+						<td align="center" style="vertical-align: middle;"> <%= logObject[i].amount %> <span
+								style="color: #999999;">(<%= logObject[i].bonusPoint%> ) </span> </td>
 						<td align="center" style="vertical-align: middle;">
 							<% if(logObject[i].payment.type == "신용카드" ) { %>
-								<button class="payment_button color_card %> ">
-							<% } else if (logObject[i].payment.type == "쿠폰" ) { %>
+							<button class="payment_button color_card %> ">
+								<% } else if (logObject[i].payment.type == "쿠폰" ) { %>
 								<button class="payment_button color_coupon %> ">
-							<% } else if (logObject[i].payment.type == "관리자" ) { %>
-								<button class="payment_button color_admin %> ">
-							<% } else { %>
-								<button class="payment_button color_cash%> ">
-							<% } %>
-								<%= logObject[i].payment.type %>
-								</button>
+									<% } else if (logObject[i].payment.type == "관리자" ) { %>
+									<button class="payment_button color_admin %> ">
+										<% } else { %>
+										<button class="payment_button color_cash%> ">
+											<% } %>
+											<%= logObject[i].payment.type %>
+										</button>
 						</td>
 					</tr>
 					<% } %>
-					<tr style="border-radius: 10px;background-color: #eaeeef; padding-bottom:5px; margin-bottom:5px; height:46px;">
+					<tr
+						style="border-radius: 10px;background-color: #eaeeef; padding-bottom:5px; margin-bottom:5px; height:46px;">
 						<td colspan="6" align="center" class="mouse_cursor" onClick="pageLimit();"> + 더보기 </td>
 					</tr>
 				</tbody>
 
 			</table>
 		</div>
-
+	</div>
 
 
 	<!--===============================================================================================-->
@@ -151,9 +163,20 @@
 	<!--===============================================================================================-->
 
 	<script>
-		function pageLimit(){
+		let delay;
+
+		function loadingDelay() {
+			delay = setTimeout(showPage, 800);
+		}
+
+		function showPage() {
+			document.getElementById("loader").style.display = "none";
+			document.getElementById("tableWrapper").style.display = "block";
+		}
+
+		function pageLimit() {
 			currentPageLimit = <%= pageLimit %> + 10
-			location.href = "/list?pageLimit="+currentPageLimit;
+			location.href = "/list?pageLimit=" + currentPageLimit;
 		}
 		/*
 		$(document).ready(function () {
@@ -168,11 +191,11 @@
 		
 		});
 		*/
-		$('#calendarbutton').click(function(){
+		$('#calendarbutton').click(function () {
 			('#datepicker').datepicker('show');
 		});
 
-		
+
 
 	</script>
 
