@@ -85,28 +85,30 @@
 
 	<div id="loader"></div>
 
-	<div id="tableWrapper" class="animate-bottom">
 
-		<div class="container background_div">
-			<table class="table table-borderless table_body">
-				<thead>
-					<tr class="table1_title_font">
-						<th class="" style="border: 0; padding-left:50px;">총 건수</th>
-						<th style="border: 0;">총 매출</th>
-						<th style="border: 0;">현금 매출</th>
-						<th style="border: 0; padding-left:50px;">카드 매출</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="table1_subtitle_font">
-						<td style="border: 0; padding-left:50px;"> <%= documentCount %> 건</td>
-						<td style="border: 0;"> <%= totalAmount %> 원</td>
-						<td style="border: 0;"> <%= cashAmount %> 원</td>
-						<td style="border: 0; padding-left:50px;"> <%= cardAmount %> 원</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+
+	<div class="container background_div">
+		<table class="table table-borderless table_body">
+			<thead>
+				<tr class="table1_title_font">
+					<th class="" style="border: 0; padding-left:50px;">총 건수</th>
+					<th style="border: 0;">총 매출</th>
+					<th style="border: 0;">현금 매출</th>
+					<th style="border: 0; padding-left:50px;">카드 매출</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="table1_subtitle_font">
+					<td style="border: 0; padding-left:50px;"> <%= documentCount %> 건</td>
+					<td style="border: 0;"> <%= totalAmount %> 원</td>
+					<td style="border: 0;"> <%= cashAmount %> 원</td>
+					<td style="border: 0; padding-left:50px;"> <%= cardAmount %> 원</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div id="tableWrapper" class="animate-bottom">
 
 		<div class="container background_div" align="center">
 			<table id="table_content" class="table table-borderless table_body" style="min-height:678px;">
