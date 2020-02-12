@@ -266,12 +266,9 @@ a:hover {
 
 /************************************/
 
-
-
 .payment_button {
   width: 88px;
   height: 30px;
-  background-color: #22ce8b;
 
   font-size: 14px;
   font-weight: normal;
@@ -287,8 +284,22 @@ a:hover {
 
   border-radius: 5px;
   border:0;
-
   cursor: pointer;
-
 }
+
+.color_cash {
+  background-color: #3bb3ff;
+}
+
+.color_card {
+  background-color: #22ce8b;
+}
+.color_coupon {
+  background-color: #ffbb0d;
+}
+.color_admin {
+  background-color: #fc7777;
+}
+
+
 /**********************************/

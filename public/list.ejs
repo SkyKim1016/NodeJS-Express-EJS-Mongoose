@@ -91,10 +91,10 @@
 				</thead>
 				<tbody>
 					<tr class="table1_subtitle_font">
-						<td style="border: 0; padding-left:50px;">{{documentCount}} 건</td>
-						<td style="border: 0;">{{totalAmount}} 원</td>
-						<td style="border: 0;">{{cashAmount}} 원</td>
-						<td style="border: 0; padding-left:50px;">{{cardAmount}} 원</td>
+						<td style="border: 0; padding-left:50px;"> <%= documentCount %> 건</td>
+						<td style="border: 0;"> <%= totalAmount %> 원</td>
+						<td style="border: 0;"> <%= cashAmount %> 원</td>
+						<td style="border: 0; padding-left:50px;"> <%= cardAmount %> 원</td>
 					</tr>
 				</tbody>
 			</table>
@@ -106,24 +106,37 @@
 					<tr class="table2_title_font">
 						<td align="center" scope="col" style="border: 0;">NO</td>
 						<td align="center" scope="col" style="border: 0;">매출일시</td>
+						<td align="center" scope="col" style="border: 0;">고유번호</td>
 						<td align="center" scope="col" style="border: 0;">구분</td>
 						<td align="center" scope="col" style="border: 0;">결제금액 <span style="color: #999999;">(추가포인트)</span></td>
 						<td align="center" scope="col" style="border: 0;">결제수단</td>
 					</tr>
 				</thead>
 				<tbody>
-					
-					{{#each logObject }}
+					<% for(var i=0; i < logObject.length ; i++) { %>
 					<tr scope="row" class="table_body_text">
-						<td align="center" style="vertical-align: middle;">{{this.indexNumber}}</td>
-						<td align="center" style="vertical-align: middle;">{{this.timestampFormat }}</td>
+						<td align="center" style="vertical-align: middle;"> <%= logObject[i].indexNumber %></td>
+						<td align="center" style="vertical-align: middle;"><%= logObject[i].timestampFormat %></td>
+						<td align="center" style="vertical-align: middle;"> ABCDE312 </td>
 						<td align="center" style="vertical-align: middle;"> 신규 </td>
-						<td align="center" style="vertical-align: middle;"> {{this.amount}}<span style="color: #999999;">({{this.bonusPoint}}) </span> </td>
-						<td align="center" style="vertical-align: middle;"><button class="payment_button">{{this.payment.type}}</button></td>
+						<td align="center" style="vertical-align: middle;"> <%= logObject[i].amount %> <span style="color: #999999;">(<%= logObject[i].bonusPoint%> ) </span> </td>
+						<td align="center" style="vertical-align: middle;">
+							<% if(logObject[i].payment.type == "카드" ) { %>
+								<button class="payment_button color_card %> ">
+							<% } else if (logObject[i].payment.type == "쿠폰" ) { %>
+								<button class="payment_button color_coupon %> ">
+							<% } else if (logObject[i].payment.type == "관리자" ) { %>
+								<button class="payment_button color_admin %> ">
+							<% } else { %>
+								<button class="payment_button color_cash%> ">
+							<% } %>
+								<%= logObject[i].payment.type %>
+								</button>
+						</td>
 					</tr>
-					{{/each}}
+					<% } %>
 					<tr style="border-radius: 10px;background-color: #eaeeef; padding-bottom:5px; margin-bottom:5px;">
-						<td colspan="5" align="center" class="mouse_cursor"> + 더보기 </td>
+						<td colspan="6" align="center" class="mouse_cursor"> + 더보기 </td>
 					</tr>
 				</tbody>
 
@@ -138,6 +151,8 @@
 	<!--===============================================================================================-->
 
 	<script>
+		
+		{}
 		/*
 		$(document).ready(function () {
 

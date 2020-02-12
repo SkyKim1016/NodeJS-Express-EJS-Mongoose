@@ -13,7 +13,8 @@ const mongoose    = require('mongoose');
 const path        = require('path');  // For getting public directory path 
 const chalk       = require('chalk'); // For consol log color
 const morgan      = require('morgan'); // For printing URL which called REST from website 
-const hbs         = require('hbs'); // For printing javascript variables in client files which are .hbs in public directory 
+//const hbs         = require('hbs'); // For printing javascript variables in client files which are .hbs in public directory 
+const ejs         = require('ejs')  //For printing javascript variables in client files which are .ejs in public directory
 
 require('dotenv').config()  // loads .env file which inluded Mongodb connect URL and Port 
 
@@ -39,9 +40,9 @@ mongoose.connect('mongodb://localhost/smartCoinDB', {
 const publicDirectoryPath = path.join(__dirname, '/public/')
 app.use(express.static(publicDirectoryPath))
     .set('views',publicDirectoryPath) // Setting handlebar engine and views location
-    .set('view engine', 'hbs')
- 
-hbs.registerPartials(publicDirectoryPath+ '/partials') // For deviding and registing header and footer in .hbs files 
+    .set('view engine', 'ejs')
+// app.engine('html',require('ejs').renderFile)
+//hbs.registerPartials(publicDirectoryPath+ '/partials') // For deviding and registing header and footer in .hbs files 
 
 
 // [CONFIGURE APP TO USE bodyParser]

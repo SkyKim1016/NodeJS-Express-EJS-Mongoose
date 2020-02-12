@@ -36,7 +36,7 @@ router.get('/list', async(req,res) => {
 
         for(index in logObject){
            
-            logObject[index].timestampFormat = moment(logObject[index].timestamp).format('YYYY.MM.DD HH:MM') 
+            logObject[index].timestampFormat = moment(logObject[index].timestamp).format('YYYY-MM-DD HH:MM:SS') 
 
             totalAmount += logObject[index].amount
 
@@ -45,10 +45,16 @@ router.get('/list', async(req,res) => {
                 logObject[index].payment.type = '현금';
                 cashAmount+= logObject[index].amount
 
-            }else if(logObject[index].payment.type === 'card'){
+            } 
+            if(logObject[index].payment.type === 'creditCard'){
                 logObject[index].payment.type = '카드'
                 cardAmount+= logObject[index].amount
-
+            }
+            if(logObject[index].payment.type === 'coupon'){
+                logObject[index].payment.type = '쿠폰'
+            }
+            if(logObject[index].payment.type === 'admin'){
+                logObject[index].payment.type = '관리자'
             }
             
         }
@@ -78,7 +84,7 @@ router.get('/list/:dateCondition', async(req,res) => {
         // logDatas = JSON.stringify(logDocument)
         console.log(chalk.blueBright(logObject))
 
-        res.render('list', {
+        res.render('list.ejs', {
             logObject : logObject
         
 
