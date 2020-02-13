@@ -13,15 +13,21 @@ const Tag = require('../models/tag');
 const Log = require('../models/log');
 const Account = require('../models/account');
 
+// Custmized middleware for JWT token
+const auth = require('../middleware/auth')
+
 
 router.get('/', (req,res) => res.render('landing',{
-
+    
 }))
 
+router.get('/login/me', auth, async (req,res) => {
+   res.send(req.account)
+})
 
-router.get('/login', (req,res) => res.render('login',{
+// router.get('/login', auth, (req,res) => res.render('login',{
 
-}));
+// }));
 
 router.post('/account/login', async(req, res) => { 
     try{
@@ -37,7 +43,7 @@ router.post('/account/login', async(req, res) => {
     }
 });
 
-router.post('/accountReg', async (req,res) =>{
+router.post('/account/reg', async (req,res) =>{
     const account = new Account (req.body)
     try{
         // account.forEach(update) => { account[update] = req.body[update] })

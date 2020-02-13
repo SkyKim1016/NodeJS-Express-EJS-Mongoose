@@ -26,7 +26,7 @@ const accountSchema = new mongoose.Schema({
         //     }
         // }
     },
-    branch_name:{
+    member_name:{
         type:String,
         required:true,
         trim:true,
@@ -40,15 +40,17 @@ const accountSchema = new mongoose.Schema({
         type:String,
         trim: true
     },
-    last_login:{
-        type: Date, 
-        default: Date.now
-    },
+ 
     tokens: [{
         token: {
             type:String,
             required:true
-        }
+        },
+        last_login:{
+            type: Date, 
+            default: Date.now
+        },
+
     }]
     
 }, {
@@ -85,7 +87,6 @@ accountSchema.statics.findByCredentials = async (id, password) => {
     if(account.password != password){
         throw new Error('Password not matched')
     } 
-
      return account
 }
 
