@@ -21,13 +21,13 @@ router.get('/', (req,res) => res.render('landing',{
     
 }))
 
-router.get('/login/me', auth, async (req,res) => {
-   res.send(req.account)
-})
+// router.get('/login/me', auth, async (req,res) => {
+//    res.send(req.account)
+// })
 
-// router.get('/login', auth, (req,res) => res.render('login',{
+router.get('/login', (req,res) => res.render('login',{
 
-// }));
+}));
 
 router.post('/account/login', async(req, res) => { 
     try{
