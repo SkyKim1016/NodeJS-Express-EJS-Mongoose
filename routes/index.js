@@ -11,15 +11,43 @@ const moment = require('moment')
 // DEFINE MODEL
 const Tag = require('../models/tag');
 const Log = require('../models/log');
+const Account = require('../models/account');
 
 
 router.get('/', (req,res) => res.render('landing',{
 
 }))
 
+
 router.get('/login', (req,res) => res.render('login',{
 
-}))
+}));
+
+router.post('/account/login', async(req, res) => { 
+    try{
+       //const id = req.body.id;
+       // const account = await Account.findOne({ id })
+
+       const account = await Account.findByCredentials(req.body.id, req.body.password)
+       const token = await account.generateAuthToken()
+
+        res.send({account, token})
+    }catch(e){
+        console.log(chalk.redBright(e))
+    }
+});
+
+router.post('/accountReg', async (req,res) =>{
+    const account = new Account (req.body)
+    try{
+        // account.forEach(update) => { account[update] = req.body[update] })
+        await account.save()
+        res.status(201).send(account)
+    }catch(e){
+        res.status(400).send(e)
+    }
+})
+
 
 router.get('/list', async(req,res) => {
 
@@ -37,6 +65,8 @@ router.get('/list', async(req,res) => {
 
         // This is for cumulative calculating of total amount and cash and creditCard
         let totalAmountObject = await Log.find({}).sort({timestamp: -1})
+
+  
         for(index in totalAmountObject){
             totalAmount += totalAmountObject[index].amount
     

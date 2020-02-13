@@ -16,6 +16,8 @@ const morgan      = require('morgan'); // For printing URL which called REST fro
 //const hbs         = require('hbs'); // For printing javascript variables in client files which are .hbs in public directory 
 const ejs         = require('ejs')  //For printing javascript variables in client files which are .ejs in public directory
 
+const jwt = require('jsonwebtoken');
+
 require('dotenv').config()  // loads .env file which inluded Mongodb connect URL and Port 
 
 // [ CONFIGURE mongoose ]
@@ -61,9 +63,18 @@ const index = require('./routes/index')
 app.use(api);
 app.use(index);
 
-// [CONFIGURE SERVER PORT]
-var port = process.env.PORT || 8000;
+// const myFunction = async () => {
+//     const token = jwt.sign({ id:'GS' }, 'thisisgs', {expiresIn: '1 second'}) //
+//     console.log(token) //Base64 = 1.Header 2.Body 3.Signiture 
 
+//    const data = jwt.verify(token, 'thisisgs')
+//    console.log(chalk.blueBright(JSON.stringify(data)))
+// }
+
+// myFunction();
+
+// [CONFIGURE SERVER PORT]
+var port = process.env.PORT;
 
 // [RUN SERVER]
 var server = app.listen(port, function(){
