@@ -44,7 +44,7 @@ const accountSchema = new mongoose.Schema({
         type: Date, 
         default: Date.now
     },
-    token: [{
+    tokens: [{
         token: {
             type:String,
             required:true
@@ -57,9 +57,15 @@ const accountSchema = new mongoose.Schema({
 
 accountSchema.methods.generateAuthToken = async function () {
     const account = this
-    const token = jwt.sign({ id:account.id.toString() }, 'SignedToken')
 
-    account.tokens = acount.tokens.concat({ token })
+    // console.log(chalk.blueBright(account));
+
+    const token = jwt.sign({ id: account.id.toString() }, 'SignedToken')
+
+    console.log(chalk.redBright(token))
+
+    account.tokens = account.tokens.concat({ token })
+    
     await account.save()
 
     return token
