@@ -99,13 +99,27 @@ a:hover {
   display:inline-block;
 }
 
-.nav2_li {
+/* .nav2_li {
   display:inline-block;
   border-radius: 5px;
   border: solid 1px #d0d4d7;
   background-color: #ffffff;
   margin: 0;
   padding: 0;
+} */
+
+.nav2_button_selected {
+  width: 132px;
+  height: 33px;
+  border-radius: 4.5px;
+  background-color: #eaeeef;
+}
+
+.nav2_button {
+  width: 132px;
+  height: 33px;
+  border-radius: 4.5px;
+  background-color: #ffffff;
 }
 
 .nav2_li_a {

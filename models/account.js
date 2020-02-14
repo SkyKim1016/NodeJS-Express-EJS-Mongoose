@@ -62,7 +62,7 @@ accountSchema.methods.generateAuthToken = async function () {
 
     // console.log(chalk.blueBright(account));
 
-    const token = jwt.sign({ id: account.id.toString() }, 'SignedToken')
+    const token = jwt.sign({ id: account.id.toString() }, 'SignedToken', { expiresIn:"8h"})
 
     console.log(chalk.redBright(token))
 

@@ -88,7 +88,7 @@ router.get('/list', async(req,res) => {
         let logObject = await Log.find({}).sort({timestamp: -1}).limit(pageLimit)
         for(index in logObject){
 
-            logObject[index].timestampFormat = moment(logObject[index].timestamp).format('YYYY/MM/DD HH:MM:SS') 
+            logObject[index].timestampFormat = moment(logObject[index].timestamp).format('YYYY/MM/DD hh:mm:ss') 
     
                 if(logObject[index].payment.type === 'cash' ){
                     logObject[index].payment.type = '현금';
