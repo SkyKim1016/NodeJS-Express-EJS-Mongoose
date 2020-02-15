@@ -58,7 +58,7 @@ router.post('/account/reg', async (req,res) =>{
 router.get('/list', async(req,res) => {
 
     let totalAmount=0 , cashAmount=0 , cardAmount=0
-    let DocumentCount=0
+    let documentCount=0 , tempRowNumber=0
 
     let dateNow = moment(Date.now()).format('YYYY.MM.DD HH:MM')
 
@@ -77,16 +77,25 @@ router.get('/list', async(req,res) => {
             totalAmount += totalAmountObject[index].amount
     
                 if(totalAmountObject[index].payment.type === 'cash' ){
-                    cashAmount+= totalAmountObject[index].amount
+                    cashAmount += totalAmountObject[index].amount
                 } 
                 if(totalAmountObject[index].payment.type === 'creditCard'){
-                    cardAmount+= totalAmountObject[index].amount
+                    cardAmount += totalAmountObject[index].amount
                 }
         }
 
          // This is getting page datas 
         let logObject = await Log.find({}).sort({timestamp: -1}).limit(pageLimit)
         for(index in logObject){
+
+            //if(logObject[index].rowNumber == undefined || logObject[index].rowNumber === null || logObject[index].rowNumber == '' )
+            if(tempRowNumber == 0 ){
+                tempRowNumber = documentCount
+            }
+            logObject[index].rowNumber = tempRowNumber
+            tempRowNumber =  tempRowNumber -1
+            
+
 
             logObject[index].timestampFormat = moment(logObject[index].timestamp).format('YYYY/MM/DD hh:mm:ss') 
     
