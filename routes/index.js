@@ -126,26 +126,49 @@ router.get('/api/logout', function(req, res){
 
 
 
-router.get('/list',auth, async(req,res) => {
+router.get('/list', auth, async(req,res) => {
+
+    let reqSessionName = req.session.name
 
     let totalAmount=0 , cashAmount=0 , cardAmount=0
     let documentCount=0 , tempRowNumber=0
 
-    let dateNow = moment(Date.now()).format('YYYY.MM.DD HH:MM')
+
 
     let pageLimit = parseInt(req.query.pageLimit) || 10;
 
-    let reqSessionName = req.session.name
+    let requestDate = req.query.dateCalendar
+
+    let dateNow = moment(Date.now()).format('MM/DD/YYYY')
+
+    let queryDate 
+
+    if(requestDate === '' || typeof requestDate === 'undefined' ){
+        queryDate = dateNow
+    }else{
+        queryDate = requestDate
+    }
+
+    console.log(chalk.greenBright('requestDate : ' + requestDate));
+
+
+
+    // let match={}
+    // if(req.query.requestDate){
+    //     match.timestamp = req.query.requestDate === 'true'
+    // }
 
     try{
         
+        //@ [1] First Query 
         //This is counting of record
-        documentCount = await Log.find({}).countDocuments()
+        documentCount = await Log.find({ timestamp : { $lte : queryDate } }).countDocuments()
 
+        
+        //@ [2] Second Query
         // This is for cumulative calculating of total amount and cash and creditCard
-        let totalAmountObject = await Log.find({}).sort({timestamp: -1})
-
-  
+        //let totalAmountObject = await Log.find({}).sort({timestamp: -1})
+        let totalAmountObject = await Log.find({ timestamp : { $lte : queryDate }  }).sort({timestamp: -1})  
         for(index in totalAmountObject){
             totalAmount += totalAmountObject[index].amount
     
@@ -157,8 +180,10 @@ router.get('/list',auth, async(req,res) => {
                 }
         }
 
-         // This is getting page datas 
-        let logObject = await Log.find({}).sort({timestamp: -1}).limit(pageLimit)
+
+         //@ [3] Third Query
+        // This is getting page datas 
+        let logObject = await Log.find({ timestamp : { $lte : queryDate } }).sort({timestamp: -1}).limit(pageLimit)
         for(index in logObject){
 
             //if(logObject[index].rowNumber == undefined || logObject[index].rowNumber === null || logObject[index].rowNumber == '' )
@@ -187,10 +212,11 @@ router.get('/list',auth, async(req,res) => {
    
         }
 
+         //@ This is rendering that variables into view page 
         res.render('list', {
             reqSessionName,
+            queryDate,
             documentCount,
-            dateNow,
             totalAmount,
             cashAmount,
             cardAmount,

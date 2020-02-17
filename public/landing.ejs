@@ -16,7 +16,7 @@
     <link href="css/landing.css" rel="stylesheet">
 </head>
 
-<body>
+<body onload="loadingAnimationFunction()">
 
     <header class="header">
         <!-- Fixed navbar -->
@@ -32,7 +32,9 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse" style="margin-left: 300px;">
                     <ul class="navbar-nav mr-auto">
                         <li style="margin-top: 6px; margin-right:6px;">
-                            <img src="images/landing/ic-phone.png" rcset="images/landing/ic-phone@2x.png 2x, images/landing/ic-phone@3x.png 3x" class="ic_phone">
+                            <img src="images/landing/ic-phone.png"
+                                rcset="images/landing/ic-phone@2x.png 2x, images/landing/ic-phone@3x.png 3x"
+                                class="ic_phone">
 
                         </li>
                         <li class="nav-item" class="fontstyle">
@@ -41,8 +43,8 @@
                         <li style="margin-top: 5px;">
                             <a href="https://open.kakao.com/o/su6UlIWb">
                                 <img width="120" height="34" src="images/landing/ic-kakao.png"
-                                srcset="images/landing/ic-kakao@2x.png 2x, images/landing/ic-kakao@3x.png 3x"
-                                class="ic_kakao" style="margin-left:20px">
+                                    srcset="images/landing/ic-kakao@2x.png 2x, images/landing/ic-kakao@3x.png 3x"
+                                    class="ic_kakao" style="margin-left:20px">
                             </a>
                         </li>
                     </ul>
@@ -51,26 +53,37 @@
         </nav>
     </header>
 
-    <!-- Begin page content -->
-    <main role="main" class="container" style="margin-top: 10%">
-        <div>
-            <div style="float: left;">
-               
-                <!-- {{!-- <h1 class="mt-5">셀프세차의 시작</h1> --}}
+
+    <div id="loader"></div>
+
+    <div style="display:none;" id="loadingAnimationWrapper" class="animate-bottom">
+        <!-- Begin page content -->
+        <main role="main" class="container" style="margin-top: 10%">
+            <div>
+                <div style="float: left;">
+
+                    <!-- {{!-- <h1 class="mt-5">셀프세차의 시작</h1> --}}
                  {{!-- <p class="lead">스마트코인
                     <p>스마트코인 매장관리 솔루션으로 스마트하게 관리하세요.</p> --}} -->
-                 <img src="images/landing/body-title.png" srcset="images/landing/body-title@2x.png 2x, images/landing/body-title@3x.png 3x" class="layer">
-                 <br/><img style="margin-top: 19px;" src="images/landing/body-subtitle.png" srcset="images/landing/body-subtitle@2x.png 2x, images/landing/body-subtitle@3x.png 3x" class="layer">
-                 <br/><img style="margin-top: 40px;" src="images/landing/body-context.png" srcset="images/landing/body-context@2x.png 2x, images/landing/body-context@3x.png 3x" class="layer">
-                 <br/><button style="margin-top:38px;" onClick="location.href='/login'">점주 로그인</button>
+                    <img src="images/landing/body-title.png"
+                        srcset="images/landing/body-title@2x.png 2x, images/landing/body-title@3x.png 3x" class="layer">
+                    <br /><img style="margin-top: 19px;" src="images/landing/body-subtitle.png"
+                        srcset="images/landing/body-subtitle@2x.png 2x, images/landing/body-subtitle@3x.png 3x"
+                        class="layer">
+                    <br /><img style="margin-top: 40px;" src="images/landing/body-context.png"
+                        srcset="images/landing/body-context@2x.png 2x, images/landing/body-context@3x.png 3x"
+                        class="layer">
+                    <br /><button style="margin-top:38px;" onClick="location.href='/login'">점주 로그인</button>
+                </div>
+                <div style="float: right;">
+                    <img src="images/landing/img-laptop.jpg"
+                        srcset="images/landing/img-laptop@2x.jpg 2x, images/landing/simg-laptop@3x.jpg 3x"
+                        class="img_laptop">
+                </div>
             </div>
-            <div style="float: right;">
-                <img src="images/landing/img-laptop.jpg"
-                srcset="images/landing/img-laptop@2x.jpg 2x, images/landing/simg-laptop@3x.jpg 3x"
-                class="img_laptop">
-            </div>
-        </div>
-    </main>
+        </main>
+    </div>
+
 
     <footer class="footer">
         <div class="container">
@@ -78,7 +91,7 @@
                 <span class="text-muted footer_text">경기도 용인시 기흥구 구성로 279번길 24-12 (청덕동) / 사업자번호 716-86-01146 </span>
             </div>
             <div style="float: right;">
-                    <span class="text-muted footer_text">©️ 2020. smartcoinsystems. All right reserved. </span>
+                <span class="text-muted footer_text">©️ 2020. smartcoinsystems. All right reserved. </span>
             </div>
         </div>
     </footer>
@@ -86,9 +99,26 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+    <script>
+        function loadingAnimationFunction() {
+            myVar = setTimeout(showPage, 100);
+        }
+
+        function showPage() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("loadingAnimationWrapper").style.display = "block";
+        }        
+    </script>
 </body>
 
 </html>

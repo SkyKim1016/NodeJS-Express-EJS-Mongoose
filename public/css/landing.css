@@ -28,7 +28,7 @@ html {
     line-height: 60px; /* Vertically center the text there */
     background-color: #f5f5f5;
   }
-  
+
   
   /* Custom page CSS
   -------------------------------------------------- */
@@ -83,68 +83,31 @@ html {
     letter-spacing: normal;
     color: #878d91;
     }
-/* body {
-    margin:0;
-    padding:0; 
-    font-family: "NotoSansKR", sans-serif !important;;
-}
 
-.header{
-    background-color: #438afe; 
-    height: 60px;
-    width:100%;
+
+    /* Add animation to "page content" */
+    /*-------------------------------------------------- */
     
+    #loader {
+
+  
+    }
+
+    .animate-bottom {
+      position: relative;
+      -webkit-animation-name: animatebottom;
+      -webkit-animation-duration: 1s;
+      animation-name: animatebottom;
+      animation-duration: 1s
+    }
+
+    @-webkit-keyframes animatebottom {
+      from { bottom:-100px; opacity:0 } 
+      to { bottom:0px; opacity:1 }
+    }
+
+    @keyframes animatebottom { 
+      from{ bottom:-100px; opacity:0 } 
+      to{ bottom:0; opacity:1 }
 }
 
-.header_align{
-    margin-left: 20%;
-    margin-right: 20%;
-    display:table;
-    
-}
-
-.header_left{
-    float: left;
-    vertical-align: middle;
-    display:table-cell;
-    text-align:justify;
-}
-
-.header_right{
-    float: right;
-
-    vertical-align: middle;
-    display:table-cell;
-    text-align:justify;
-    height: 60px;
-
-    background-color: antiquewhite;
-}
-
-
-.header_span_text{
-    font-size: 16px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #ffffff;
-
-    vertical-align:middle;
-    display:table-cell;
-    text-align:justify;
-    
-}
-
-img.header_image_logo{
-    margin-top: 10%;
-    display: block;    
-}
-
-
-img.header_image_kakao{
-  width: 120px;
-  height: 34px;
-
-} */

@@ -1,28 +1,31 @@
-// let messageFrom = this.document.querySelector('form');
-// let name = document.querySelector('#name');
-// let email = document.querySelector('#email');
-// let message = document.querySelector('#message');
-// let url = document.querySelector('#url');
-// let phone = document.querySelector('#phone');
+let delay;
 
-messageFrom.addEventListener('submit', (e) => {
+function loadingDelay() {
+	delay = setTimeout(showPage, 800);
+}
 
+function showPage() {
+	document.getElementById("loader").style.display = "none";
+	document.getElementById("LoadingWrapper").style.display = "block";
+}
 
-	fetch('/writePost', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(
-			{
-				name: name.value,			
-				email: email.value,
-				url: url.value,
-				message: message.value,
+function pageLimit() {
+	currentPageLimit = <%= pageLimit %> + 10
+	location.href = "/list?pageLimit=" + currentPageLimit;
+}
+/*
+$(document).ready(function () {
 
-			}
-		)
-	});
+	$('.btn btn-outline-secondary border-left-0').css( 'height', 38 + 'px !important' )
+	$('.body_container2_div3_span_timestamp').each(function (index) {
+		timestamp = $("#timestamp" + index).innerHTML
+		timestampFormat = moment(timestamp).format('YYYY.MM.DD HH:MM')
 
-	alert("등록이 완료 되었습니다 \n"+"name.value : "+name.value+"\n message.value : " + message.value);
-})
+		$('#timestamp' + index).text(timestampFormat)
+	})
+
+});
+*/
+$('#calendarbutton').click(function () {
+	('#datepicker').datepicker('show');
+});

@@ -66,17 +66,14 @@
 			<div>
 
 			</div style="float: right;">
-			<ul>
-				<li>
-					<input id="datepicker" class="dp" />
-					<script>
-						$('#datepicker').datepicker();
-					</script>
-				</li>
-				<li>
-					<button class="nav2_ul_li_button" id="calendarbutton" onclick=""> 조회 </button>
-				</li>
-			</ul>
+				<ul>
+					<li>
+						<input id="dateCalendar" class="dp" value="<%= queryDate %>" />
+					</li>
+					<li>
+						<button type="submit" class="nav2_ul_li_button" id="calendarbutton" onClick="submitToServer();"> 조회 </button>
+					</li>
+				</ul>
 		</div>
 	</nav>
 
@@ -104,7 +101,7 @@
 			</tbody>
 		</table>
 	</div>
-
+	
 	<div id="LoadingWrapper" class="animate-bottom">
 
 		<div class="container background_div" align="center">
@@ -122,6 +119,12 @@
 					</tr>
 				</thead>
 				<tbody>
+					<%if(logObject.length === 0){ %> 
+						<tr scope="row" class="table_body_text">
+							<td colspan="6"></td>
+						</tr>
+					<%}%>
+
 					<% for(var i=0; i < logObject.length ; i++) { %>
 					<tr scope="row" class="table_body_text">
 						<td align="center" style="vertical-align: middle;"> <%= logObject[i].rowNumber%></td>
@@ -146,8 +149,8 @@
 					</tr>
 					<% } %>
 					<tr
-						style="border-radius: 10px;background-color: #eaeeef; padding-bottom:5px; margin-bottom:5px; height:46px;">
-						<td colspan="6" align="center" class="mouse_cursor" onClick="pageLimit();"> + 더보기 </td>
+						style="border-radius: 10px;background-color: #eaeeef; padding-bottom:5px; margin-bottom:5px; height:46px !important;">
+						<td colspan="6" align="center" class="mouse_cursor" onClick="submitToServer();"> + 더보기 </td>
 					</tr>
 				</tbody>
 
@@ -162,7 +165,13 @@
 	<!--===============================================================================================-->
 
 	<script>
-		let delay;
+		$(document).ready(function () {
+			$('#dateCalendar').datepicker({dateFormat: 'yy-mm-dd'});
+		})
+
+		let dateCalendar = document.querySelector('#dateCalendar');
+
+		let delay; //This is for Loading animation
 
 		function loadingDelay() {
 			delay = setTimeout(showPage, 800);
@@ -173,10 +182,12 @@
 			document.getElementById("LoadingWrapper").style.display = "block";
 		}
 
-		function pageLimit() {
+
+		function submitToServer() {
 			currentPageLimit = <%= pageLimit %> + 10
-			location.href = "/list?pageLimit=" + currentPageLimit;
+			location.href = "/list?pageLimit=" + currentPageLimit + "&dateCalendar=" + dateCalendar.value;
 		}
+
 		/*
 		$(document).ready(function () {
 
@@ -190,9 +201,11 @@
 		
 		});
 		*/
-		$('#calendarbutton').click(function () {
-			('#datepicker').datepicker('show');
-		});
+
+
+		// $('#calendarbutton').click(function () {
+		// 	('#datepicker').datepicker('show');
+		// });
 
 
 

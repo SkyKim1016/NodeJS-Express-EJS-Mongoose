@@ -1,50 +1,61 @@
-window.onload = function () {
+// window.onload = function () {
   
-	var error = Snap.select("#error" ),
-      hole = Snap.select("#svg-hole" ),
-      hand = Snap.select("#svg-hand" ),
-      mask = Snap.select("#svg-mask" );
+// 	var error = Snap.select("#error" ),
+//       hole = Snap.select("#svg-hole" ),
+//       hand = Snap.select("#svg-hand" ),
+//       mask = Snap.select("#svg-mask" );
 
 
-	function onSVGLoaded( ){
+// 	function onSVGLoaded( ){
     
-		function animOn(){
-			hand.animate({
-				transform: "t10,-300, r0"
-			}, 4500, mina.easeinout, animOut);
+// 		function animOn(){
+// 			hand.animate({
+// 				transform: "t10,-300, r0"
+// 			}, 4500, mina.easeinout, animOut);
 
-			mask.animate({
-				transform: "t-10,300, r0"
-			}, 4500, mina.easeinout);
-		}
+// 			mask.animate({
+// 				transform: "t-10,300, r0"
+// 			}, 4500, mina.easeinout);
+// 		}
 
-		function animOut() {
-			hand.animate({
-				transform: "t-10,-305, r0"
-			}, 4500, mina.easeinout, animOn);
+// 		function animOut() {
+// 			hand.animate({
+// 				transform: "t-10,-305, r0"
+// 			}, 4500, mina.easeinout, animOn);
 
-			mask.animate({
-				transform: "t10,305, r0"
-			}, 4500, mina.easeinout);
-		};
+// 			mask.animate({
+// 				transform: "t10,305, r0"
+// 			}, 4500, mina.easeinout);
+// 		};
     
-    function open() {
-			clearTimeout(timer);
-			hand.animate({
-				transform: "t0,-300"
-			}, 800, mina.backout, animOn);
+//     function open() {
+// 			clearTimeout(timer);
+// 			hand.animate({
+// 				transform: "t0,-300"
+// 			}, 800, mina.backout, animOn);
 
-			mask.animate({
-				transform: "t0,300"
-			}, 800, mina.backout);
+// 			mask.animate({
+// 				transform: "t0,300"
+// 			}, 800, mina.backout);
 
-		}
-		timer = setTimeout(open, 1000);
+// 		}
+// 		timer = setTimeout(open, 1000);
 
-		hand.attr({
-			mask: mask
-		});
-	}
+// 		hand.attr({
+// 			mask: mask
+// 		});
+// 	}
   
-  onSVGLoaded();
-};
+//   onSVGLoaded();
+// };
+
+
+
+function loadingAnimationFunction() {
+	myVar = setTimeout(showPage, 100);
+}
+
+function showPage() {
+	document.getElementById("loader").style.display = "none";
+	document.getElementById("loadingAnimationWrapper").style.display = "block";
+}       

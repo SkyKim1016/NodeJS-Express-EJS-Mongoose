@@ -1,3 +1,14 @@
+
+function loadingAnimationFunction() {
+	myVar = setTimeout(showPage, 100);
+}
+
+function showPage() {
+	document.getElementById("loader").style.display = "none";
+	document.getElementById("loadingAnimationWrapper").style.display = "block";
+}        
+
+
 let messageFrom = this.document.querySelector('form');
 let inputID = document.querySelector('#id');
 let inputPassword = document.querySelector('#password');
