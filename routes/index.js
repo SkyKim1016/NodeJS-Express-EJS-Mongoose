@@ -254,4 +254,9 @@ router.get('/list/:dateCondition', async(req,res) => {
     
 })
 
+//The 404 Route (ALWAYS Keep this as the last route)
+router.get('*', function(req, res){
+    res.render('error')
+  });
+
 module.exports = router
