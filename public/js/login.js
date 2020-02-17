@@ -1,23 +1,27 @@
 let messageFrom = this.document.querySelector('form');
-let inputID = document.querySelector('#inputID');
-let inputPassword = document.querySelector('#inputPassword');
+let inputID = document.querySelector('#id');
+let inputPassword = document.querySelector('#password');
 
 messageFrom.addEventListener('submit', (e) => {
 
 
-	fetch('/writePost', {
+	fetch('/api/login', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify(
 			{
-				inputID: inputID.value,			
-				inputPassword: inputPassword.value,
+				id: inputID.value,			
+				password: inputPassword.value,
 			}
 		)
-	});
+	})
+	// .then(function(result) {
+	// 		alert(JSON.stringify(result));
+	// 	}
+	// )
 
-    alert("로그인 \n"+"inputID.value : "+inputID.value+"\n inputPassword.value : " + inputPassword.value)
+    // alert("로그인 \n"+"inputID.value : "+inputID.value+"\n inputPassword.value : " + inputPassword.value)
     
 })

@@ -6,56 +6,127 @@
 const express = require('express');
 const router = new express.Router();
 const chalk = require('chalk');
-const moment = require('moment')
+const moment = require('moment');
 
 // DEFINE MODEL
 const Tag = require('../models/tag');
 const Log = require('../models/log');
-const Account = require('../models/account');
 
+let session = require('express-session');
+const auth = require('../middleware/auth');
+
+// const Account = require('../models/account');
 // Custmized middleware for JWT token
-const auth = require('../middleware/auth')
 
 
-router.get('/', (req,res) => res.render('landing',{
+
+router.get('/', ( req,res) => res.render('landing',{
     
 }))
 
-// router.get('/login/me', auth, async (req,res) => {
-//    res.send(req.account)
-// })
 
-router.get('/login', (req,res) => res.render('login',{
 
-}));
-
-router.post('/account/login', async(req, res) => { 
-    try{
-       //const id = req.body.id;
-       // const account = await Account.findOne({ id })
-
-       const account = await Account.findByCredentials(req.body.id, req.body.password)
-       const token = await account.generateAuthToken()
-
-        res.send({account, token})
-    }catch(e){
-        console.log(chalk.redBright(e))
+router.get('/login', (req,res) => {
+    let reqSession = req.session;
+    
+    if(reqSession.loginCheck === 'true'){
+        res.redirect('/list')
+    }else{
+        res.render('login',{})
     }
+    
 });
 
-router.post('/account/reg', async (req,res) =>{
-    const account = new Account (req.body)
-    try{
-        // account.forEach(update) => { account[update] = req.body[update] })
-        await account.save()
-        res.status(201).send(account)
-    }catch(e){
-        res.status(400).send(e)
+router.post('/api/login', (req,res) => {
+
+    let reqSession = req.session;
+    let id = req.body.id
+    let password = req.body.password
+
+    //console.log(chalk.greenBright('req_session : '+ req.req_session + " / id : " + req.params.id + " / password : " + req.params.password))
+    
+    if(id == 'admin'){
+
+        if(password == '1234'){
+            reqSession.name = 'GS칼텍스 시화점',
+            reqSession.loginCheck = 'true',
+
+            res.send({
+                status:'200',
+                reqSession : reqSession.id
+            })
+        }
+    }
+    
+});
+
+router.get('/api/logout', function(req, res){
+    reqSession = req.session;
+    if(reqSession.name){
+        req.session.destroy(function(err){
+            if(err){
+                console.error(err);
+            }else{
+                res.redirect('/');
+            }
+        })
+    }else{
+        res.redirect('/');
     }
 })
 
+// router.get('/login/me', auth, async (req,res) => {
+//     res.send(req.account)
+//  })
 
-router.get('/list', async(req,res) => {
+// router.post('/account/reg', async (req,res) =>{
+//     const account = new Account (req.body)
+//     try{
+//         // account.forEach(update) => { account[update] = req.body[update] })
+//         await account.save()
+//         res.status(201).send(account)
+//     }catch(e){
+//         res.status(400).send(e)
+//     }
+// })
+
+// router.post('/account/login', async(req, res) => { 
+//     try{
+//        //const id = req.body.id;
+//        // const account = await Account.findOne({ id })
+
+//        const account = await Account.findByCredentials(req.body.id, req.body.password)
+//        const token = await account.generateAuthToken()
+
+//         res.send({account, token})
+//     }catch(e){
+//         console.log(chalk.redBright(e))
+//     }
+// });
+
+// router.post('/account/logout', auth, async (req,res) => {
+//     try{
+
+//         //@ LogoutAll
+//         //req.account.tokens = []
+//         // await req.account.save()
+//         // res.send()
+        
+//         req.account.tokens = req.account.tokens.filter( (token) => {
+//             return token.token !== req.token 
+//         })
+//         await req.account.save()
+//         res.send()
+
+
+//     }catch(e){
+//         console.error(e)
+//     }
+// });
+
+
+
+router.get('/list',auth, async(req,res) => {
 
     let totalAmount=0 , cashAmount=0 , cardAmount=0
     let documentCount=0 , tempRowNumber=0
@@ -63,6 +134,8 @@ router.get('/list', async(req,res) => {
     let dateNow = moment(Date.now()).format('YYYY.MM.DD HH:MM')
 
     let pageLimit = parseInt(req.query.pageLimit) || 10;
+
+    let reqSessionName = req.session.name
 
     try{
         
@@ -115,6 +188,7 @@ router.get('/list', async(req,res) => {
         }
 
         res.render('list', {
+            reqSessionName,
             documentCount,
             dateNow,
             totalAmount,

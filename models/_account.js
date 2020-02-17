@@ -60,11 +60,15 @@ const accountSchema = new mongoose.Schema({
 accountSchema.methods.generateAuthToken = async function () {
     const account = this
 
-    // console.log(chalk.blueBright(account));
+    console.log(chalk.blueBright('account : ' + account));
 
-    const token = jwt.sign({ id: account.id.toString() }, 'SignedToken', { expiresIn:"8h"})
+    const token = jwt.sign(
+        { id: account.id.toString() }, 
+        'secretkey', 
+        { expiresIn:"8h"}
+    )
 
-    console.log(chalk.redBright(token))
+    console.log(chalk.greenBright('generated Token : ' +  token))
 
     account.tokens = account.tokens.concat({ token })
     
@@ -74,7 +78,7 @@ accountSchema.methods.generateAuthToken = async function () {
 }
 
 accountSchema.statics.findByCredentials = async (id, password) => {
-    const account = await Account.findOne({ id })
+    let account = await Account.findOne({ id })
     if(!account){
         throw new Error('ID is empty')
     }

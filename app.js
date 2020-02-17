@@ -16,6 +16,8 @@ const morgan      = require('morgan'); // For printing URL which called REST fro
 //const hbs         = require('hbs'); // For printing javascript variables in client files which are .hbs in public directory 
 const ejs         = require('ejs')  //For printing javascript variables in client files which are .ejs in public directory
 
+let session = require('express-session');
+
 require('dotenv').config()  // loads .env file which inluded Mongodb connect URL and Port 
 
 // [ CONFIGURE mongoose ]
@@ -52,13 +54,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(morgan('dev')); // For printing that requested RESTFUL URL on console 
+
+app.use(session({
+    secret: 'secretkey',
+    resave:false,
+    saveUninitialized:true
+}))
+
 // [CONFIGURE ROUTER]
 // var router = require('./routes')(app, Tag, Log);
+
 const api = require('./routes/api')
 const index = require('./routes/index')
 
 app.use(api);
 app.use(index);
+
 
 
 // [CONFIGURE SERVER PORT]
