@@ -66,14 +66,15 @@
 			<div>
 
 			</div style="float: right;">
-				<ul>
-					<li>
-						<input id="dateCalendar" class="dp" value="<%= queryDate %>" />
-					</li>
-					<li>
-						<button type="submit" class="nav2_ul_li_button" id="calendarbutton" onClick="submitToServer();"> 조회 </button>
-					</li>
-				</ul>
+			<ul>
+				<li>
+					<input id="dateCalendar" class="dp" value="<%= queryDate %>" />
+				</li>
+				<li>
+					<button type="submit" class="nav2_ul_li_button" id="calendarbutton" onClick="submitToServer();"> 조회
+					</button>
+				</li>
+			</ul>
 		</div>
 	</nav>
 
@@ -101,59 +102,64 @@
 			</tbody>
 		</table>
 	</div>
-	
+
 	<div id="LoadingWrapper" class="animate-bottom">
 
 		<div class="container background_div" align="center">
 			<table id="table_content" class="table table-borderless table_body" style="min-height:678px;">
-				<thead>
-					<tr class="table2_title_font">
-						<td align="center" scope="col" style="border: 0;">NO</td>
-						<td align="center" scope="col" style="border: 0;">매출일시</td>
-						<td align="center" scope="col" style="border: 0;">고유번호</td>
-						<td align="center" scope="col" style="border: 0;">구분</td>
-						<td align="center" scope="col" style="border: 0;">결제금액 <span
-								style="color: #999999;">(추가포인트)</span>
-						</td>
-						<td align="center" scope="col" style="border: 0;">결제수단</td>
-					</tr>
-				</thead>
-				<tbody>
-					<%if(logObject.length === 0){ %> 
-						<tr scope="row" class="table_body_text">
-							<td colspan="6"></td>
-						</tr>
-					<%}%>
-
-					<% for(var i=0; i < logObject.length ; i++) { %>
+				<%if(logObject.length === 0){ %>
 					<tr scope="row" class="table_body_text">
-						<td align="center" style="vertical-align: middle;"> <%= logObject[i].rowNumber%></td>
-						<td align="center" style="vertical-align: middle;"><%= logObject[i].timestampFormat %></td>
-						<td align="center" style="vertical-align: middle;"> <%= logObject[i].uid %></td>
-						<td align="center" style="vertical-align: middle;"> 신규 </td>
-						<td align="center" style="vertical-align: middle;"> <%= logObject[i].amount %> <span
-								style="color: #999999;">(<%= logObject[i].bonusPoint%> ) </span> </td>
-						<td align="center" style="vertical-align: middle;">
-							<% if(logObject[i].payment.type == "신용카드" ) { %>
-							<button class="payment_button color_card %> ">
-								<% } else if (logObject[i].payment.type == "쿠폰" ) { %>
-								<button class="payment_button color_coupon %> ">
-									<% } else if (logObject[i].payment.type == "관리자" ) { %>
-									<button class="payment_button color_admin %> ">
-										<% } else { %>
-										<button class="payment_button color_cash%> ">
-											<% } %>
-											<%= logObject[i].payment.type %>
-										</button>
+						<td colspan="" style="vertical-align: middle; " align="center">
+							<!-- <H5> No date result </H3> -->
+							<img src="images/list/not_result.gif" />
 						</td>
 					</tr>
-					<% } %>
-					<tr
-						style="border-radius: 10px;background-color: #eaeeef; padding-bottom:5px; margin-bottom:5px; height:46px !important;">
-						<td colspan="6" align="center" class="mouse_cursor" onClick="submitToServer();"> + 더보기 </td>
-					</tr>
-				</tbody>
+				<%} else { %>
+					<thead>
+						<tr class="table2_title_font">
+							<td align="center" scope="col" style="border: 0;">NO</td>
+							<td align="center" scope="col" style="border: 0;">매출일시</td>
+							<td align="center" scope="col" style="border: 0;">고유번호</td>
+							<td align="center" scope="col" style="border: 0;">구분</td>
+							<td align="center" scope="col" style="border: 0;">결제금액 <span
+									style="color: #999999;">(추가포인트)</span>
+							</td>
+							<td align="center" scope="col" style="border: 0;">결제수단</td>
+						</tr>
+					</thead>
+					<tbody>
 
+
+						<% for(var i=0; i < logObject.length ; i++) { %>
+						<tr scope="row" class="table_body_text">
+							<td align="center" style="vertical-align: middle;"> <%= logObject[i].rowNumber%></td>
+							<td align="center" style="vertical-align: middle;"><%= logObject[i].timestampFormat %></td>
+							<td align="center" style="vertical-align: middle;"> <%= logObject[i].uid %></td>
+							<td align="center" style="vertical-align: middle;"> 신규 </td>
+							<td align="center" style="vertical-align: middle;"> <%= logObject[i].amount %> <span
+									style="color: #999999;">(<%= logObject[i].bonusPoint%> ) </span> </td>
+							<td align="center" style="vertical-align: middle;">
+								<% if(logObject[i].payment.type == "신용카드" ) { %>
+								<button class="payment_button color_card %> ">
+									<% } else if (logObject[i].payment.type == "쿠폰" ) { %>
+									<button class="payment_button color_coupon %> ">
+										<% } else if (logObject[i].payment.type == "관리자" ) { %>
+										<button class="payment_button color_admin %> ">
+											<% } else { %>
+											<button class="payment_button color_cash%> ">
+												<% } %>
+												<%= logObject[i].payment.type %>
+											</button>
+							</td>
+						</tr>
+						<% } %>
+						<tr
+							style="border-radius: 10px;background-color: #eaeeef; padding-bottom:5px; margin-bottom:5px; height:46px !important;">
+							<td colspan="6" align="center" class="mouse_cursor" onClick="submitToServer();"> + 더보기 </td>
+						</tr>
+					</tbody>
+
+				<% } %>
 			</table>
 		</div>
 	</div>
@@ -166,7 +172,7 @@
 
 	<script>
 		$(document).ready(function () {
-			$('#dateCalendar').datepicker({dateFormat: 'yy-mm-dd'});
+			$('#dateCalendar').datepicker({ dateFormat: 'yy-mm-dd' });
 		})
 
 		let dateCalendar = document.querySelector('#dateCalendar');
@@ -198,7 +204,7 @@
 
 				$('#timestamp' + index).text(timestampFormat)
 			})
-		
+
 		});
 		*/
 
