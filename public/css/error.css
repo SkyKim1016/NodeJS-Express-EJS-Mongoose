@@ -131,10 +131,7 @@ svg #shadow_1_ {
    /* Add animation to "page content" */
     /*-------------------------------------------------- */
     
-    #loader {
-
-  
-    }
+    #loader {}
 
     .animate-bottom {
       position: relative;
