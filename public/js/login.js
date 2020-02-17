@@ -1,6 +1,6 @@
 
 function loadingAnimationFunction() {
-	myVar = setTimeout(showPage, 100);
+	myVar = setTimeout(showPage, 50);
 }
 
 function showPage() {
