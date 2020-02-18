@@ -126,7 +126,7 @@ router.get('/api/logout', function(req, res){
 
 
 
-router.get('/list', async(req,res) => {
+router.get('/list', auth , async(req,res) => {
 
     let reqSessionName = req.session.name
 
@@ -225,8 +225,8 @@ router.get('/list', async(req,res) => {
          //@ This is rendering that variables into view page 
         res.render('list', {
             reqSessionName,
-            queryStartDate: moment(queryStartDate).format('MM/DD/YYYY'),
-            queryEndDate: moment(queryEndDate).format('MM/DD/YYYY'),
+            queryStartDate,
+            queryEndDate ,
             documentCount,
             totalAmount,
             cashAmount,
