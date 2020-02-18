@@ -225,8 +225,16 @@ a:hover {
 
 }
 
-.table_content{
+#datasetTable{
+  border-spacing: 5px 1rem;;
+  border-collapse: separate;
+}
 
+
+#datasetTable th, td{
+  border-radius: 5px;
+  border: solid 1px #eaeaea;
+  
 }
 
 .noborder{

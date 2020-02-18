@@ -106,7 +106,7 @@
 	<div id="LoadingWrapper" class="animate-bottom">
 
 		<div class="container background_div" align="center">
-			<table id="table_content" class="table table-borderless table_body" style="min-height:678px;">
+			<table id="datasetTable" class="table datasetTable" style="min-height:678px;" cellpadding="10">
 				<%if(logObject.length === 0){ %>
 					<tr scope="row" class="table_body_text">
 						<td colspan="" style="vertical-align: middle; " align="center">
@@ -193,6 +193,10 @@
 			currentPageLimit = <%= pageLimit %> + 10
 			location.href = "/list?pageLimit=" + currentPageLimit + "&dateCalendar=" + dateCalendar.value;
 		}
+
+
+
+
 
 		/*
 		$(document).ready(function () {
