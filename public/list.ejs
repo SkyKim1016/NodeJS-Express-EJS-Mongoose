@@ -77,7 +77,7 @@
 								images/list/ic-calendar@3x.png 3x"
 						class="ic_calendar">
 					</span>
-					<input id="dateCalendar" class="dp dateCalendar" value="<%= queryDate %>" />
+					<input id="startDateCalendar" class="dp dateCalendar" value="<%= queryStartDate %>" />
 				</li>
 				<li>
 					<span class="nav2_span">
@@ -86,7 +86,7 @@
 								images/list/ic-calendar@3x.png 3x"
 						class="ic_calendar">
 					</span>
-					<input id="dateCalendar" class="dp dateCalendar" value="<%= queryDate %>" />
+					<input id="endDateCalendar" class="dp dateCalendar" value="<%= queryEndDate %>" />
 				</li>
 				<li>
 					<button type="submit" class="nav2_ul_li_button" id="calendarbutton" onClick="submitToServer();"> 조회
@@ -192,10 +192,11 @@
 
 	<script>
 		$(document).ready(function () {
-			$('#dateCalendar').datepicker({ dateFormat: 'yy-mm-dd' });
+			$('.dateCalendar').datepicker({ "dateFormat" : "YYYY-MM-DD" });
 		})
 
-		let dateCalendar = document.querySelector('#dateCalendar');
+		let startDateCalendar = document.querySelector('#startDateCalendar');
+		let endDateCalendar = document.querySelector('#endDateCalendar');
 
 		let delay; //This is for Loading animation
 
@@ -211,7 +212,7 @@
 
 		function submitToServer() {
 			currentPageLimit = <%= pageLimit %> + 10
-			location.href = "/list?pageLimit=" + currentPageLimit + "&dateCalendar=" + dateCalendar.value;
+			location.href = "/list?pageLimit=" + currentPageLimit + "&startDateCalendar=" + startDateCalendar.value + "&endDateCalendar=" + endDateCalendar.value ;
 		}
 
 

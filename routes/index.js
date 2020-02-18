@@ -126,7 +126,7 @@ router.get('/api/logout', function(req, res){
 
 
 
-router.get('/list', auth, async(req,res) => {
+router.get('/list', async(req,res) => {
 
     let reqSessionName = req.session.name
 
@@ -137,20 +137,30 @@ router.get('/list', auth, async(req,res) => {
 
     let pageLimit = parseInt(req.query.pageLimit) || 10;
 
-    let requestDate = req.query.dateCalendar
+    let reqStartDateCalendar = req.query.startDateCalendar;
+    let reqEndDateCalendar = req.query.endDateCalendar
 
     let dateNow = moment(Date.now()).format('MM/DD/YYYY')
 
-    let queryDate 
+    let queryStartDate, queryEndDate;
 
-    if(requestDate === '' || typeof requestDate === 'undefined' ){
-        queryDate = dateNow
+    if(reqStartDateCalendar === '' || typeof reqStartDateCalendar === 'undefined' ){
+        queryStartDate = '01/01/2020'
     }else{
-        queryDate = requestDate
+        queryStartDate = moment(reqStartDateCalendar).utcOffset('+0700')
+        queryStartDate = queryStartDate
     }
 
-    console.log(chalk.greenBright('requestDate : ' + requestDate));
+    if(reqEndDateCalendar === '' || typeof reqEndDateCalendar === 'undefined' ){
+        queryEndDate = '12/12/2020'
+    }else{
+        queryEndDate = moment(reqEndDateCalendar).utcOffset('+0700')
+        queryEndDate = queryEndDate.add(1,'day')
+    }
 
+
+    console.log(chalk.greenBright('queryStartDate : '+ queryStartDate))
+    console.log(chalk.greenBright('queryEndDate : '+ queryEndDate))
 
 
     // let match={}
@@ -162,13 +172,13 @@ router.get('/list', auth, async(req,res) => {
         
         //@ [1] First Query 
         //This is counting of record
-        documentCount = await Log.find({ timestamp : { $lte : queryDate } }).countDocuments()
+        documentCount = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate } }).countDocuments()
 
         
         //@ [2] Second Query
         // This is for cumulative calculating of total amount and cash and creditCard
         //let totalAmountObject = await Log.find({}).sort({timestamp: -1})
-        let totalAmountObject = await Log.find({ timestamp : { $lte : queryDate }  }).sort({timestamp: -1})  
+        let totalAmountObject = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate }  }).sort({timestamp: -1})  
         for(index in totalAmountObject){
             totalAmount += totalAmountObject[index].amount
     
@@ -183,7 +193,7 @@ router.get('/list', auth, async(req,res) => {
 
          //@ [3] Third Query
         // This is getting page datas 
-        let logObject = await Log.find({ timestamp : { $lte : queryDate } }).sort({timestamp: -1}).limit(pageLimit)
+        let logObject = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate } }).sort({timestamp: -1}).limit(pageLimit)
         for(index in logObject){
 
             //if(logObject[index].rowNumber == undefined || logObject[index].rowNumber === null || logObject[index].rowNumber == '' )
@@ -215,7 +225,8 @@ router.get('/list', auth, async(req,res) => {
          //@ This is rendering that variables into view page 
         res.render('list', {
             reqSessionName,
-            queryDate,
+            queryStartDate: moment(queryStartDate).format('MM/DD/YYYY'),
+            queryEndDate: moment(queryEndDate).format('MM/DD/YYYY'),
             documentCount,
             totalAmount,
             cashAmount,

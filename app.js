@@ -9,7 +9,7 @@
 const express     = require('express');
 const app         = express();
 const bodyParser  = require('body-parser');
-const mongoose    = require('mongoose');
+const mongoose    = require('mongoose').set('debug',true);
 const path        = require('path');  // For getting public directory path 
 const chalk       = require('chalk'); // For consol log color
 const morgan      = require('morgan'); // For printing URL which called REST from website 
