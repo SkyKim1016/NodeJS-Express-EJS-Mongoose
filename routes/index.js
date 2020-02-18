@@ -126,7 +126,7 @@ router.get('/api/logout', function(req, res){
 
 
 
-router.get('/list', auth , async(req,res) => {
+router.get('/list' , async(req,res) => {
 
     let reqSessionName = req.session.name
 
@@ -159,8 +159,7 @@ router.get('/list', auth , async(req,res) => {
     }
 
 
-    console.log(chalk.greenBright('queryStartDate : '+ queryStartDate))
-    console.log(chalk.greenBright('queryEndDate : '+ queryEndDate))
+  
 
 
     // let match={}
@@ -206,7 +205,10 @@ router.get('/list', auth , async(req,res) => {
 
 
             logObject[index].timestampFormat = moment(logObject[index].timestamp).format('YYYY/MM/DD hh:mm:ss') 
-    
+
+                if(typeof logObject[index].payment.type === 'undefined' || logObject[index].payment.type === null || logObject[index].payment.type === ''  ){
+                    logObject[index].payment.type = '현금';
+                } 
                 if(logObject[index].payment.type === 'cash' ){
                     logObject[index].payment.type = '현금';
                 } 
@@ -222,11 +224,14 @@ router.get('/list', auth , async(req,res) => {
    
         }
 
+        console.log(chalk.greenBright('queryStartDate : '+ queryStartDate))
+        console.log(chalk.greenBright('queryEndDate : '+ queryEndDate))
+
          //@ This is rendering that variables into view page 
         res.render('list', {
             reqSessionName,
-            queryStartDate,
-            queryEndDate ,
+            reqStartDateCalendar,
+            reqEndDateCalendar ,
             documentCount,
             totalAmount,
             cashAmount,
