@@ -126,7 +126,7 @@ router.get('/api/logout', function(req, res){
 
 
 
-router.get('/list' , async(req,res) => {
+router.get('/list', auth, async(req,res) => {
 
     let reqSessionName = req.session.name
 
@@ -206,8 +206,8 @@ router.get('/list' , async(req,res) => {
 
             logObject[index].timestampFormat = moment(logObject[index].timestamp).format('YYYY/MM/DD hh:mm:ss') 
 
-                if(typeof logObject[index].payment.type === 'undefined' || logObject[index].payment.type === null || logObject[index].payment.type === ''  ){
-                    logObject[index].payment.type = '현금';
+                if(logObject[index].payment.type === undefined || logObject[index].payment.type === null || logObject[index].payment.type === ''  ){
+                    logObject[index].payment.type = '없음';
                 } 
                 if(logObject[index].payment.type === 'cash' ){
                     logObject[index].payment.type = '현금';
