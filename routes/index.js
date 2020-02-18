@@ -133,8 +133,6 @@ router.get('/list', auth, async(req,res) => {
     let totalAmount=0 , cashAmount=0 , cardAmount=0
     let documentCount=0 , tempRowNumber=0
 
-
-
     let pageLimit = parseInt(req.query.pageLimit) || 10;
 
     let reqStartDateCalendar = req.query.startDateCalendar;
@@ -144,24 +142,6 @@ router.get('/list', auth, async(req,res) => {
 
     let queryStartDate, queryEndDate;
 
-    if(reqStartDateCalendar === '' || typeof reqStartDateCalendar === 'undefined' ){
-        queryStartDate = '01/01/2020'
-    }else{
-        queryStartDate = moment(reqStartDateCalendar).utcOffset('+0700')
-        queryStartDate = queryStartDate
-    }
-
-    if(reqEndDateCalendar === '' || typeof reqEndDateCalendar === 'undefined' ){
-        queryEndDate = '12/12/2020'
-    }else{
-        queryEndDate = moment(reqEndDateCalendar).utcOffset('+0700')
-        queryEndDate = queryEndDate.add(1,'day')
-    }
-
-
-  
-
-
     // let match={}
     // if(req.query.requestDate){
     //     match.timestamp = req.query.requestDate === 'true'
@@ -169,12 +149,29 @@ router.get('/list', auth, async(req,res) => {
 
     try{
         
-        //@ [1] First Query 
+        //@ [1] This is date setting which recieved calendar date from view page 
+        //This is counting of record
+        if(reqStartDateCalendar === '' || typeof reqStartDateCalendar === 'undefined' ){
+            queryStartDate = '01/01/2020'
+        }else{
+            queryStartDate = moment(reqStartDateCalendar).utcOffset('+0700')
+            queryStartDate = queryStartDate
+        }
+    
+        if(reqEndDateCalendar === '' || typeof reqEndDateCalendar === 'undefined' ){
+            queryEndDate = '12/12/2020'
+        }else{
+            queryEndDate = moment(reqEndDateCalendar).utcOffset('+0700')
+            queryEndDate = queryEndDate.add(1,'day')
+        }
+
+
+        //@ [2] First Query 
         //This is counting of record
         documentCount = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate } }).countDocuments()
 
         
-        //@ [2] Second Query
+        //@ [3] Second Query
         // This is for cumulative calculating of total amount and cash and creditCard
         //let totalAmountObject = await Log.find({}).sort({timestamp: -1})
         let totalAmountObject = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate }  }).sort({timestamp: -1})  
@@ -190,7 +187,7 @@ router.get('/list', auth, async(req,res) => {
         }
 
 
-         //@ [3] Third Query
+         //@ [4] Third Query
         // This is getting page datas 
         let logObject = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate } }).sort({timestamp: -1}).limit(pageLimit)
         for(index in logObject){
@@ -224,8 +221,8 @@ router.get('/list', auth, async(req,res) => {
    
         }
 
-        console.log(chalk.greenBright('queryStartDate : '+ queryStartDate))
-        console.log(chalk.greenBright('queryEndDate : '+ queryEndDate))
+        // console.log(chalk.greenBright('queryStartDate : '+ queryStartDate))
+        // console.log(chalk.greenBright('queryEndDate : '+ queryEndDate))
 
          //@ This is rendering that variables into view page 
         res.render('list', {
@@ -245,7 +242,8 @@ router.get('/list', auth, async(req,res) => {
         // })
     
     }catch(e){
-        console.log(e)
+        //console.log(e)
+        res.render('error')
     }
     
 })
@@ -270,7 +268,7 @@ router.get('/list/:dateCondition', async(req,res) => {
     
 })
 
-//The 404 Route (ALWAYS Keep this as the last route)
+//The 404 Error Route (ALWAYS Keep this as the last route)
 router.get('*', function(req, res){
     res.render('error')
   });
