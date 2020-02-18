@@ -6,6 +6,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!--===============================================================================================-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!--===============================================================================================-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
 		integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 	<!--===============================================================================================-->
@@ -13,6 +15,7 @@
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/list.css">
 	<!--===============================================================================================-->
+
 
 	<!--==================================== J S ======================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -68,7 +71,22 @@
 			</div style="float: right;">
 			<ul>
 				<li>
-					<input id="dateCalendar" class="dp" value="<%= queryDate %>" />
+					<span class="nav2_span">
+						<img src="images/list/ic-calendar.png"
+						srcset="images/list/ic-calendar@2x.png 2x,
+								images/list/ic-calendar@3x.png 3x"
+						class="ic_calendar">
+					</span>
+					<input id="dateCalendar" class="dp dateCalendar" value="<%= queryDate %>" />
+				</li>
+				<li>
+					<span class="nav2_span">
+						<img src="images/list/ic-calendar.png"
+						srcset="images/list/ic-calendar@2x.png 2x,
+								images/list/ic-calendar@3x.png 3x"
+						class="ic_calendar">
+					</span>
+					<input id="dateCalendar" class="dp dateCalendar" value="<%= queryDate %>" />
 				</li>
 				<li>
 					<button type="submit" class="nav2_ul_li_button" id="calendarbutton" onClick="submitToServer();"> 조회
@@ -78,7 +96,9 @@
 		</div>
 	</nav>
 
-	<div id="loader"></div>
+	<div id="loader">
+
+	</div>
 
 
 
