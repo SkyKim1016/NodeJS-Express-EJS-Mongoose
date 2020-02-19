@@ -139,48 +139,12 @@ a:hover {
   height: 50px !important;
 }
 
-.dateCalendar{
-  font-family: "NotoSansKR", sans-serif !important;;
-  font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.29;
-  letter-spacing: normal;
-  color: #424242;
-  text-align: center;
-}
-
-.nav2_ul_li_calendar {
-  width: 49px;
-  height: 33px;
-  border-radius: 4.4px;
-  background-color: #d0d4d7;
-  margin:0;
-  padding:0;
-}
-
-.nav2_ul_li_calendar_images {
-  width: 18px;
-  height: 19px;
-  object-fit: contain;
-  margin: 0 0 0 0;
-  padding: 0 0 0 0;
-}
-
-.nav2_ul_input {
-  font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.29;
-  letter-spacing: normal;
-  color: #424242;
-  margin: 0 0 0 0;
-  padding: 0 0 0 0;
-  height: 34px;
-
-  text-align: center;
+.selectbox{
+  width: 100px; 
+  background:#ffffff;
+  border-radius: 5px;
+  border: solid 1px #d0d4d7; 
+  text-align-last:center;
 }
 
 .nav2_ul_li_button {

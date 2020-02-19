@@ -302,7 +302,7 @@ router.get('/saleListDaily', auth, async(req,res) => {
         for(index in totalAmountObject){
             totalAmount += totalAmountObject[index].amount
     
-                if(totalAmountObject[index].payment.type === 'cash' ){
+                if(totalAmountObject[index].payment.type === 'cash' || typeof (totalAmountObject[index].payment.type) === 'undefined'){
                     cashAmount += totalAmountObject[index].amount
                 } 
                 if(totalAmountObject[index].payment.type === 'creditCard'){
@@ -425,7 +425,7 @@ router.get('/saleListMonthly', auth, async(req,res) => {
         for(index in totalAmountObject){
             totalAmount += totalAmountObject[index].amount
     
-                if(totalAmountObject[index].payment.type === 'cash' ){
+                if(totalAmountObject[index].payment.type === 'cash' || typeof (totalAmountObject[index].payment.type) === 'undefined'){
                     cashAmount += totalAmountObject[index].amount
                 } 
                 if(totalAmountObject[index].payment.type === 'creditCard'){
