@@ -207,12 +207,12 @@ a:hover {
 /************************************/
 
 .background_div {
+  margin-top: 16px;
   width: 1280px;
   height: auto;
   border-radius: 5px;
   padding-left:0; 
   padding-right:0;
-  /* border: solid 1px #e2e5e7; */
   background-color: #ffffff;
 }
 
