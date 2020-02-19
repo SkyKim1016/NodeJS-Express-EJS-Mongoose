@@ -126,7 +126,7 @@ router.get('/api/logout', function(req, res){
 
 
 
-router.get('/saleList', auth, async(req,res) => {
+router.get('/saleList', async(req,res) => {
 
     let reqSessionName = req.session.name
 
@@ -193,6 +193,8 @@ router.get('/saleList', auth, async(req,res) => {
         // This is getting page datas 
         let logObject = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate } }).sort({timestamp: -1}).limit(pageLimit)
         for(index in logObject){
+            
+           
 
             //if(logObject[index].rowNumber == undefined || logObject[index].rowNumber === null || logObject[index].rowNumber == '' )
             if(tempRowNumber == 0 ){
@@ -204,6 +206,12 @@ router.get('/saleList', auth, async(req,res) => {
 
 
             logObject[index].timestampFormat = moment(logObject[index].timestamp).format('YYYY/MM/DD hh:mm:ss') 
+
+                if( logObject[index].method === 'depositByUid'){
+                    logObject[index].method = '충전';
+                }else{
+                    logObject[index].method = '신규';
+                }
 
                 if(logObject[index].payment.type === undefined || logObject[index].payment.type === null || logObject[index].payment.type === ''  ){
                     logObject[index].payment.type = '없음';
@@ -220,9 +228,11 @@ router.get('/saleList', auth, async(req,res) => {
                 if(logObject[index].payment.type === 'admin'){
                     logObject[index].payment.type = '관리자'
                 } 
+
+                
    
         }
-
+        console.log(chalk.greenBright('LogObject[] : '+logObject))
         // console.log(chalk.greenBright('queryStartDate : '+ queryStartDate))
         // console.log(chalk.greenBright('queryEndDate : '+ queryEndDate))
 
@@ -347,6 +357,8 @@ router.get('/saleListDaily', auth, async(req,res) => {
 
         // console.log(chalk.greenBright('queryStartDate : '+ queryStartDate))
         // console.log(chalk.greenBright('queryEndDate : '+ queryEndDate))
+       
+
 
          //@ This is rendering that variables into view page 
         res.render('saleListDaily', {
@@ -449,6 +461,8 @@ router.get('/saleListMonthly', auth, async(req,res) => {
 
 
             logObject[index].timestampFormat = moment(logObject[index].timestamp).format('YYYY/MM/DD hh:mm:ss') 
+
+             
 
                 if(logObject[index].payment.type === undefined || logObject[index].payment.type === null || logObject[index].payment.type === ''  ){
                     logObject[index].payment.type = '없음';

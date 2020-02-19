@@ -11,6 +11,7 @@ mongoose.set('useCreateIndex', true)
 var logSchema = new Schema({
     uid: { type: String, index: true },
     balance: { type: Number, index: true },
+    method: {type:String, index:true},
     point: { type: Number, index: true },
     timestamp: { type: Date, default: Date.now, index: true },
     type: { type: String, index: true },
