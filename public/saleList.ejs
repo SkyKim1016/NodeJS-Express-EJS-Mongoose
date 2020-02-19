@@ -160,15 +160,15 @@
 									style="color: #999999;">(<%= logObject[i].bonusPoint%> ) </span> </td>
 							<td align="center" style="vertical-align: middle;">
 								<% if(logObject[i].payment.type == "신용카드" ) { %>
-								<button class="payment_button color_card %> ">
+								<button class="payment_button color_card %> "><%= logObject[i].payment.type %></button>
 									<% } else if (logObject[i].payment.type == "쿠폰" ) { %>
-									<button class="payment_button color_coupon %> ">
+									<button class="payment_button color_coupon %> "><%= logObject[i].payment.type %></button>
 										<% } else if (logObject[i].payment.type == "관리자" ) { %>
-										<button class="payment_button color_admin %> ">
+										<button class="payment_button color_admin %> "><%= logObject[i].payment.type %></button>
+											<% } else if(logObject[i].payment.type == "현금" )  { %>
+											<button class="payment_button color_cash%> "><%= logObject[i].payment.type %></button>
 											<% } else { %>
-											<!-- <button class="payment_button color_cash%> ">
-												없음
-											</button> -->
+												<button class="payment_button color_none%> ">없음</button>
 											<% } %>
 							</td>
 						</tr>
