@@ -165,10 +165,8 @@
 									<button class="payment_button color_coupon %> "><%= logObject[i].payment.type %></button>
 										<% } else if (logObject[i].payment.type == "관리자" ) { %>
 										<button class="payment_button color_admin %> "><%= logObject[i].payment.type %></button>
-											<% } else if(logObject[i].payment.type == "현금" )  { %>
-											<button class="payment_button color_cash%> "><%= logObject[i].payment.type %></button>
 											<% } else { %>
-												<button class="payment_button color_none%> ">없음</button>
+											<button class="payment_button color_cash%> ">현금</button>
 											<% } %>
 							</td>
 						</tr>

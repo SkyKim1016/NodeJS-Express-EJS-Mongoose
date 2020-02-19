@@ -177,8 +177,10 @@ router.get('/saleList', auth, async(req,res) => {
         let totalAmountObject = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate }  }).sort({timestamp: -1})  
         for(index in totalAmountObject){
             totalAmount += totalAmountObject[index].amount
-    
-                if(totalAmountObject[index].payment.type === 'cash' ){
+            
+            // console.log(chalk.redBright('['+index+']payment.type  : ' + totalAmountObject[index].payment.type))
+
+                if(totalAmountObject[index].payment.type === 'cash' || typeof (totalAmountObject[index].payment.type) === 'undefined' ){
                     cashAmount += totalAmountObject[index].amount
                 } 
                 if(totalAmountObject[index].payment.type === 'creditCard'){
