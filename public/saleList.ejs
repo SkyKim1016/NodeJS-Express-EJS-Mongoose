@@ -13,7 +13,7 @@
 	<!--===============================================================================================-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/list.css">
+	<link rel="stylesheet" type="text/css" href="css/saleList.css">
 	<!--===============================================================================================-->
 
 
@@ -42,7 +42,7 @@
 					<a href="/"> <img src="images/ic-smartcoin-logo@2x.png" class="ic_smartcoin_logo"> </a>
 				</li>
 				<li>
-					<a href="/list">매출조회</a>
+					<a href="/saleList">매출조회</a>
 				</li>
 				<li>
 					<a href="#">사용내역</a>
@@ -62,9 +62,9 @@
 	<nav class="navbar sticky-top nav2" style="z-index: 998;">
 		<div class="container ">
 			<div style="float: left;">
-				<button class="nav2_button_selected">거래별 매출</button>
-				<button class="nav2_button">일별 매출</button>
-				<button class="nav2_button">월별 매출</button>
+				<button class="nav2_button_selected mouse_cursor" onClick="location.href='/saleList'">거래별 매출</button>
+				<button class="nav2_button mouse_cursor" onClick="location.href='/saleListDaily'">일별 매출</button>
+				<button class="nav2_button mouse_cursor" onClick="location.href='/saleListMonthly'">월별 매출</button>
 			</div>
 			<div>
 
@@ -211,12 +211,12 @@
 
 		function searchDate() {
 			currentPageLimit = <%= pageLimit %>
-			location.href = "/list?pageLimit=" + currentPageLimit + "&startDateCalendar=" + startDateCalendar.value + "&endDateCalendar=" + endDateCalendar.value ;
+			location.href = "/saleList?pageLimit=" + currentPageLimit + "&startDateCalendar=" + startDateCalendar.value + "&endDateCalendar=" + endDateCalendar.value ;
 		}
 
 		function moreView() {
 			currentPageLimit = <%= pageLimit %> + 10
-			location.href = "/list?pageLimit=" + currentPageLimit + "&startDateCalendar=" + startDateCalendar.value + "&endDateCalendar=" + endDateCalendar.value ;
+			location.href = "/saleList?pageLimit=" + currentPageLimit + "&startDateCalendar=" + startDateCalendar.value + "&endDateCalendar=" + endDateCalendar.value ;
 		}
 
 

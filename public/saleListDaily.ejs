@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Smart Coin </title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+		integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/saleListDaily.css">
+	<!--===============================================================================================-->
+
+
+	<!--==================================== J S ======================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+	<!--======================================= Calendar ==============================================-->
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
+
+
+</head>
+
+<body onload="loadingDelay();">
+
+
+
+	<nav class="navbar sticky-top nav1" style="z-index: 999;">
+		<div class="container ">
+			<ul class="nav1_ul">
+				<li class="nav1_li">
+					<a href="/"> <img src="images/ic-smartcoin-logo@2x.png" class="ic_smartcoin_logo"> </a>
+				</li>
+				<li>
+					<a href="/saleList">매출조회</a>
+				</li>
+				<li>
+					<a href="#">사용내역</a>
+				</li>
+				<li>
+					<a href="#">장비관리</a>
+				</li>
+				<li>
+					<a href="#">발급현황</a>
+				</li>
+			</ul>
+			<a href="#" class="nav_href_text"><%= reqSessionName %></a>
+			<button class="nav_button" onClick="location.href='/api/logout'">로그아웃</button>
+		</div>
+	</nav>
+
+	<nav class="navbar sticky-top nav2" style="z-index: 998;">
+		<div class="container ">
+			<div style="float: left;">
+				<button class="nav2_button mouse_cursor" onClick="location.href='/saleList'">거래별 매출</button>
+				<button class="nav2_button_selected mouse_cursor" onClick="location.href='/saleListDaily'">일별 매출</button>
+				<button class="nav2_button mouse_cursor" onClick="location.href='/saleListMonthly'">월별 매출</button>
+			</div>
+			<div>
+
+			</div style="float: right;">
+			<ul>
+				<li>
+					<span class="nav2_span">
+						<img src="images/list/ic-calendar.png"
+						srcset="images/list/ic-calendar@2x.png 2x,
+								images/list/ic-calendar@3x.png 3x"
+						class="ic_calendar">
+					</span>
+					<input id="startDateCalendar" class="dp dateCalendar" value="<%= reqStartDateCalendar %>" />
+				</li>
+				<li>
+					<span class="nav2_span">
+						<img src="images/list/ic-calendar.png"
+						srcset="images/list/ic-calendar@2x.png 2x,
+								images/list/ic-calendar@3x.png 3x"
+						class="ic_calendar">
+					</span>
+					<input id="endDateCalendar" class="dp dateCalendar" value="<%= reqEndDateCalendar %>" />
+				</li>
+				<li>
+					<button type="submit" class="nav2_ul_li_button" id="calendarbutton" onClick="searchDate();"> 조회
+					</button>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="loader">
+
+	</div>
+
+
+
+	<div class="container background_div">
+		<table class="table table-borderless table_body">
+			<thead>
+				<tr class="table1_title_font">
+					<th class="" style="border: 0; padding-left:50px;">총 건수</th>
+					<th style="border: 0;">총 매출</th>
+					<th style="border: 0;">현금 매출</th>
+					<th style="border: 0; padding-left:50px;">카드 매출</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="table1_subtitle_font">
+					<td style="border: 0; padding-left:50px;"> <%= documentCount %> 건</td>
+					<td style="border: 0;"> <%= totalAmount %> 원</td>
+					<td style="border: 0;"> <%= cashAmount %> 원</td>
+					<td style="border: 0; padding-left:50px;"> <%= cardAmount %> 원</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div id="LoadingWrapper" class="animate-bottom">
+
+		<div class="container background_div" align="center">
+			<table id="datasetTable" class="table datasetTable" style="" cellpadding="15">
+				<%if(logObject.length === 0){ %>
+					<tr scope="row" class="table_body_text">
+						<td colspan="" style="vertical-align: middle; " align="center">
+							<!-- <H5> No date result </H3> -->
+							<img src="images/list/not_result.gif" />
+						</td>
+					</tr>
+				<%} else { %>
+					<thead>
+						<tr class="table2_title_font" >
+							<td align="center" scope="col" style="border: 0;">매출일자</td>
+							<td align="center" scope="col" style="border: 0;">총 매출</td>
+							<td align="center" scope="col" style="border: 0;">현금매출</td>
+							<td align="center" scope="col" style="border: 0;">카드매출</td>
+							<td align="center" scope="col" style="border: 0;">건수</td>
+						</tr>
+					</thead>
+					<tbody>
+
+
+						<% for(var i=0; i < logObject.length ; i++) { %>
+						<tr scope="row" class="table_body_text" >
+							<td align="center" style="vertical-align: middle; "> <%= logObject[i].rowNumber%></td>
+							<td align="center" style="vertical-align: middle;"><%= logObject[i].timestampFormat %></td>
+							<td align="center" style="vertical-align: middle;"> <%= logObject[i].uid %></td>
+							<td align="center" style="vertical-align: middle;"> 신규 </td>
+							<td align="center" style="vertical-align: middle;"> <%= logObject[i].amount %> <span style="color: #999999;">(<%= logObject[i].bonusPoint%> ) </span> </td>
+	
+						</tr>
+						<% } %>
+						<tr
+							style="border-radius: 10px;background-color: #eaeeef; padding-bottom:5px; margin-bottom:5px; height:46px !important;">
+							<td colspan="6" align="center" class="mouse_cursor" onClick="moreView();"> + 더보기 </td>
+						</tr>
+					</tbody>
+
+				<% } %>
+			</table>
+		</div>
+	</div>
+
+
+	<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+
+	<script>
+		$(document).ready(function () {
+			$('.dateCalendar').datepicker({ "dateFormat" : "YYYY-MM-DD" });
+		})
+
+		let startDateCalendar = document.querySelector('#startDateCalendar');
+		let endDateCalendar = document.querySelector('#endDateCalendar');
+
+		let delay; //This is for Loading animation
+
+		function loadingDelay() {
+			delay = setTimeout(showPage, 800);
+		}
+
+		function showPage() {
+			document.getElementById("loader").style.display = "none";
+			document.getElementById("LoadingWrapper").style.display = "block";
+		}
+
+		function searchDate() {
+			currentPageLimit = <%= pageLimit %>
+			location.href = "/saleDailyList?pageLimit=" + currentPageLimit ;
+		}
+
+		function moreView() {
+			currentPageLimit = <%= pageLimit %> + 10
+			location.href = "/saleDailyList?pageLimit=" + currentPageLimit ;
+		}
+
+
+
+
+
+		/*
+		$(document).ready(function () {
+
+			$('.btn btn-outline-secondary border-left-0').css( 'height', 38 + 'px !important' )
+			$('.body_container2_div3_span_timestamp').each(function (index) {
+				timestamp = $("#timestamp" + index).innerHTML
+				timestampFormat = moment(timestamp).format('YYYY.MM.DD HH:MM')
+
+				$('#timestamp' + index).text(timestampFormat)
+			})
+
+		});
+		*/
+
+
+		// $('#calendarbutton').click(function () {
+		// 	('#datepicker').datepicker('show');
+		// });
+
+
+
+	</script>
+
+</body>
+
+</html>

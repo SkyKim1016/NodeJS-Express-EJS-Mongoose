@@ -1,0 +1,387 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+body {
+  background-color: #f1f5f5;
+  margin:0;
+  padding:0;
+  font-family: "NotoSansKR", sans-serif !important;;
+}
+
+
+/************************************/
+.nav1 {
+  background-color: #438afe;
+  width: 100%;
+  height: 60px;
+
+}
+
+.nav2 {
+  background-color: #f8fafb;
+  height: 60px;
+}
+
+.ic_smartcoin_logo{
+  width: 130px;
+  height: 29px;
+  object-fit: contain;
+
+}
+
+.nav1_ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  
+}
+
+li {
+  display:inline-block;
+}
+
+li a {
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.mouse_cursor:hover {
+  cursor:pointer;
+}
+
+.nav_href_text{
+  width: 127px;
+  height: 19px;
+  opacity: 0.8;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+  margin-right: -300px;
+}
+
+.nav_button{
+  width: 90px;
+  height: 34px;
+  border:0px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+
+  opacity: 0.8;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+
+  cursor:pointer;
+}
+
+/* */
+
+.nav2_ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display:inline-block;
+}
+
+/* .nav2_li {
+  display:inline-block;
+  border-radius: 5px;
+  border: solid 1px #d0d4d7;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+} */
+
+.nav2_button_selected {
+  width: 132px;
+  height: 33px;
+  border-radius: 4.5px;
+  background-color: #eaeeef;
+}
+
+.nav2_button {
+  width: 132px;
+  height: 33px;
+  border-radius: 4.5px;
+  background-color: #ffffff;
+}
+
+.nav2_li_a {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  text-align: center;
+  color: #424242;
+}
+
+.nav2_span {
+  width: 50px;
+  height: 50px !important;
+}
+
+.dateCalendar{
+  font-family: "NotoSansKR", sans-serif !important;;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #424242;
+  text-align: center;
+}
+
+.nav2_ul_li_calendar {
+  width: 49px;
+  height: 33px;
+  border-radius: 4.4px;
+  background-color: #d0d4d7;
+  margin:0;
+  padding:0;
+}
+
+.nav2_ul_li_calendar_images {
+  width: 18px;
+  height: 19px;
+  object-fit: contain;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
+.nav2_ul_input {
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #424242;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  height: 34px;
+
+  text-align: center;
+}
+
+.nav2_ul_li_button {
+  width: 90px;
+  height: 34px;
+  border-radius: 5px;
+  background-color: #3e8be8;
+
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+/************************************/
+
+
+/************************************/
+
+.background_div {
+  width: 1280px;
+  height: auto;
+  border-radius: 5px;
+  padding-left:0; 
+  padding-right:0;
+  /* border: solid 1px #e2e5e7; */
+  background-color: #ffffff;
+}
+
+
+.table_body {
+  width: 1100px;
+  height: auto;
+  min-height:68px;
+  border-radius: 5px !important;
+  margin-top: 23px;
+  padding-bottom: 23px;
+  /* border: solid 1px #e2e5e7; */
+  /* background-color: #bdbbbb; */
+
+  border-collapse: collapse;
+  border: 0;
+  border-width: 0;
+   
+
+}
+
+#datasetTable{
+  border-spacing: 5px 1rem;;
+  border-collapse: separate;
+}
+
+
+#datasetTable th, td{
+  border-radius: 5px;
+  border: solid 1px #eaeaea;
+  
+}
+
+#datasetTable tr:hover {
+  background-color: #f5f5f5;
+} 
+
+.noborder{
+ border:0;
+}
+
+.td_leftPadding{
+  padding-left:50px;
+}
+
+.table1_title_font{
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  color: #989da0;
+}
+
+.table1_subtitle_font{
+  font-size: 22px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 0.92;
+  letter-spacing: normal;
+  color: #111111;
+}
+
+.table2_title_font{
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #111111;
+  
+}
+
+.table_body_text{
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.14;
+  letter-spacing: 0.28px;
+  color: #111111;
+}
+
+/************************************/
+
+.payment_button {
+  width: 88px;
+  height: 30px;
+
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.14;
+  letter-spacing: 0.28px;
+  text-align: center;
+  color: #ffffff;
+
+  vertical-align: middle;
+  margin-left: auto;
+
+  border-radius: 5px;
+  border:0;
+  cursor: pointer;
+}
+
+.color_cash {
+  background-color: #3bb3ff;
+}
+
+.color_card {
+  background-color: #22ce8b;
+}
+.color_coupon {
+  background-color: #ffbb0d;
+}
+.color_admin {
+  background-color: #fc7777;
+}
+
+
+/**********************************/
+
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
