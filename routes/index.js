@@ -126,7 +126,7 @@ router.get('/api/logout', function(req, res){
 
 
 
-router.get('/saleList', async(req,res) => {
+router.get('/saleList', auth, async(req,res) => {
 
     let reqSessionName = req.session.name
 
