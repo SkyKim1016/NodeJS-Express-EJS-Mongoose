@@ -10,11 +10,14 @@
 	<!--===============================================================================================-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
 		integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<!--======================================= Calendar ==============================================-->
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
 	<!--===============================================================================================-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-	<!--===============================================================================================-->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css"></link>
-	<!--============================================ Chart=============================================-->
+	<!--======================================== Chart =======================================================-->
+	<link href="vendor/chart/Chart.min.css"></link>
+	<!--============================================ Custmizing =============================================-->
 	<link rel="stylesheet" type="text/css" href="css/saleListDaily.css">
 	<!--===============================================================================================-->
 
@@ -23,13 +26,13 @@
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 	<!--===============================================================================================-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-	<!--======================================= Calendar ==============================================-->
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
 	<!--======================================== Chart ==============================================-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+	<script src="vendor/chart/Chart.min.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script> -->
+	<script src="js/SaleListDaily.js"></script>
+	
 
 
 
@@ -118,8 +121,13 @@
 
 
 	<div class="container chart_div">
-		<canvas id="myChart" width="400" height="400"></canvas>
+		<div style="width: 100%"></div>
+			<canvas id="chartCanvas" width="1100px" height="250px"></canvas>
+		</div>
+		<!-- <button id="randomizeData">Randomize Data</button> -->
+		
 	</div>
+
 
 
 
@@ -176,6 +184,7 @@
 	<script>
 		$(document).ready(function () {
 			$('.dateCalendar').datepicker({ "dateFormat" : "YYYY-MM-DD" });
+			alert('아직 준비중입니다. 조금만 기달려주세요.');
 		})
 
 		let startDateCalendar = document.querySelector('#startDateCalendar');
@@ -203,7 +212,30 @@
 		}
 
 
+		var ctx = document.getElementById("chartCanvas").getContext("2d");
+		var data = {
+		labels: ["1"+"일", "2일", "3일", "4일", "5일", "6일", "7일"],
+		datasets: [{
+			label: "현금",
+			data: [6500, 5900, 8000, 2000, 1000, 3200, 2000],
+			backgroundColor: '#3bb3ff',
+            borderColor: '#3bb3ff',
+			
+		}, {
+			label: "신용카드",
+			data: [2800, 1480, 40000, 1900, 5000, 20000, 90000],
+			backgroundColor: '#22ce8b',
+            borderColor: '#22ce8b',
+		}]
+		};
+		
+		// var MyNewChart = new Chart(ctx).Line(data);
+		var myChart = new Chart(ctx, {
+			type: 'bar',
+			data:data,
 
+		})
+	
 		/*
 		$(document).ready(function () {
 
@@ -223,7 +255,84 @@
 		// 	('#datepicker').datepicker('show');
 		// });
 
-		
+		// var barChartData = {
+		// 	labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+		// 	datasets: [{
+		// 		label: 'Dataset 1',
+		// 		backgroundColor: window.chartColors.red,
+		// 		data: [
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor()
+		// 		]
+		// 	}, {
+		// 		label: 'Dataset 2',
+		// 		backgroundColor: window.chartColors.blue,
+		// 		data: [
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor()
+		// 		]
+		// 	}, {
+		// 		label: 'Dataset 3',
+		// 		backgroundColor: window.chartColors.green,
+		// 		data: [
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor(),
+		// 			randomScalingFactor()
+		// 		]
+		// 	}]
+
+		// };
+		// window.onload = function() {
+
+
+		// 	var ctx = document.getElementById('canvas').getContext('2d');
+		// 	window.myBar = new Chart(ctx, {
+		// 		type: 'bar',
+		// 		data: barChartData,
+		// 		options: {
+		// 			title: {
+		// 				display: true,
+		// 				text: 'Chart.js Bar Chart - Stacked'
+		// 			},
+		// 			tooltips: {
+		// 				mode: 'index',
+		// 				intersect: false
+		// 			},
+		// 			responsive: true,
+		// 			scales: {
+		// 				xAxes: [{
+		// 					stacked: true,
+		// 				}],
+		// 				yAxes: [{
+		// 					stacked: true
+		// 				}]
+		// 			}
+		// 		}
+		// 	});
+		// };
+
+		// document.getElementById('randomizeData').addEventListener('click', function() {
+		// 	barChartData.datasets.forEach(function(dataset) {
+		// 		dataset.data = dataset.data.map(function() {
+		// 			return randomScalingFactor();
+		// 		});
+		// 	});
+		// 	window.myBar.update();
+		// });
 
 
 	</script>

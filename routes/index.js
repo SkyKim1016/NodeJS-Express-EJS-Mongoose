@@ -260,7 +260,7 @@ router.get('/saleList', auth, async(req,res) => {
     
 })
 
-router.get('/saleListDaily', auth, async(req,res) => {
+router.get('/saleListDaily', async(req,res) => {
 
     let reqSessionName = req.session.name
 
