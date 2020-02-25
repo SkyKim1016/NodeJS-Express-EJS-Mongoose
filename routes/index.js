@@ -261,7 +261,7 @@ router.get('/saleList', async(req,res) => {
 
 
 //@  saleListDaily
-router.get('/saleListDaily', async(req,res) => {
+router.get('/saleListDaily', auth, async(req,res) => {
 
     let reqSessionName = req.session.name
 
@@ -546,7 +546,7 @@ router.get('/saleListMonthly', auth, async(req,res) => {
 
 
 //@  issueStatus 
-router.get('/issueStatus' , async(req,res) => {
+router.get('/issueStatus', auth, async(req,res) => {
 
     let reqSessionName = req.session.name
 
