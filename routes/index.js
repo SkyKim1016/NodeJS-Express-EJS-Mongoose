@@ -126,7 +126,7 @@ router.get('/api/logout', function(req, res){
 
 
 //@  saleListPage
-router.get('/saleList', auth, async(req,res) => {
+router.get('/saleList', async(req,res) => {
 
     let reqSessionName = req.session.name
 
@@ -139,6 +139,7 @@ router.get('/saleList', auth, async(req,res) => {
     let reqEndDateCalendar = req.query.endDateCalendar
 
     let dateNow = moment(Date.now()).format('MM/DD/YYYY')
+    // moment.locale('KO');  
 
     let queryStartDate, queryEndDate;
 
@@ -150,7 +151,6 @@ router.get('/saleList', auth, async(req,res) => {
     try{
         
         //@ [1] This is date setting which recieved calendar date from view page 
-        //This is counting of record
         if(reqStartDateCalendar === '' || typeof reqStartDateCalendar === 'undefined' ){
             queryStartDate = '01/01/2020'
         }else{
@@ -164,7 +164,6 @@ router.get('/saleList', auth, async(req,res) => {
             queryEndDate = moment(reqEndDateCalendar).utcOffset('+0700')
             queryEndDate = queryEndDate.add(1,'day')
         }
-
 
         //@ [2] First Query 
         //This is counting of record
@@ -546,77 +545,50 @@ router.get('/saleListMonthly', auth, async(req,res) => {
 
 
 
-//@  saleListPage
-router.get('/issueStatus', auth, async(req,res) => {
+//@  issueStatus 
+router.get('/issueStatus' , async(req,res) => {
 
     let reqSessionName = req.session.name
 
-    let totalAmount=0 , cashAmount=0 , cardAmount=0
-    let documentCount=0 , tempRowNumber=0
-
+    let searchData= req.query.searchData;
+    let searchOrder= req.query.searchOrder;
     let pageLimit = parseInt(req.query.pageLimit) || 10;
 
-    let reqStartDateCalendar = req.query.startDateCalendar;
-    let reqEndDateCalendar = req.query.endDateCalendar
+    let documentCount=0 , tempRowNumber=0
 
-    let dateNow = moment(Date.now()).format('MM/DD/YYYY')
+    let logObject 
 
-    let queryStartDate, queryEndDate;
-
-    // let match={}
-    // if(req.query.requestDate){
-    //     match.timestamp = req.query.requestDate === 'true'
-    // }
+    moment.locale('KO');  
 
     try{
         
-        //@ [1] This is date setting which recieved calendar date from view page 
+
+        //@First Query 
         //This is counting of record
-        if(reqStartDateCalendar === '' || typeof reqStartDateCalendar === 'undefined' ){
-            queryStartDate = '01/01/2020'
-        }else{
-            queryStartDate = moment(reqStartDateCalendar).utcOffset('+0700')
-            queryStartDate = queryStartDate
-        }
-    
-        if(reqEndDateCalendar === '' || typeof reqEndDateCalendar === 'undefined' ){
-            queryEndDate = '12/12/2020'
-        }else{
-            queryEndDate = moment(reqEndDateCalendar).utcOffset('+0700')
-            queryEndDate = queryEndDate.add(1,'day')
-        }
+        documentCount = await Tag.find({}).countDocuments()
 
 
-        //@ [2] First Query 
-        //This is counting of record
-        documentCount = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate } }).countDocuments()
-
-        
-        //@ [3] Second Query
-        // This is for cumulative calculating of total amount and cash and creditCard
-        //let totalAmountObject = await Log.find({}).sort({timestamp: -1})
-        let totalAmountObject = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate }  }).sort({timestamp: -1})  
-        for(index in totalAmountObject){
-            totalAmount += totalAmountObject[index].amount
-            
-            // console.log(chalk.redBright('['+index+']payment.type  : ' + totalAmountObject[index].payment.type))
-
-                if(totalAmountObject[index].payment.type === 'cash' || typeof (totalAmountObject[index].payment.type) === 'undefined' ){
-                    cashAmount += totalAmountObject[index].amount
-                } 
-                if(totalAmountObject[index].payment.type === 'creditCard'){
-                    cardAmount += totalAmountObject[index].amount
-                }
+       if(searchData) {
+            // This is getting page datas 
+            if(searchOrder === 'regDateOrder' ){
+                logObject = await Tag.find({}).sort({regDate: -1}).limit(pageLimit)
+            }else if(searchOrder === 'balanceOrder'){
+                logObject = await Tag.find({}).sort({balance: -1}).limit(pageLimit)
+            }else{
+                logObject = await Tag.find({}).sort({timestamp: -1}).limit(pageLimit)
+            }
+        }else {
+            if(searchOrder === 'regDateOrder' ){
+                logObject = await Tag.find({}).sort({regDate: -1}).limit(pageLimit)
+            }else if(searchOrder === 'balanceOrder'){
+                logObject = await Tag.find({}).sort({balance: -1}).limit(pageLimit)
+            }else{
+                logObject = await Tag.find({}).sort({timestamp: -1}).limit(pageLimit)
+            }
         }
 
-
-         //@ [4] Third Query
-        // This is getting page datas 
-        let logObject = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate } }).sort({timestamp: -1}).limit(pageLimit)
         for(index in logObject){
             
-           
-
             //if(logObject[index].rowNumber == undefined || logObject[index].rowNumber === null || logObject[index].rowNumber == '' )
             if(tempRowNumber == 0 ){
                 tempRowNumber = documentCount
@@ -625,55 +597,20 @@ router.get('/issueStatus', auth, async(req,res) => {
             tempRowNumber =  tempRowNumber -1
             
 
-
-            logObject[index].timestampFormat = moment(logObject[index].timestamp).format('YYYY/MM/DD hh:mm:ss') 
-
-                if( logObject[index].method === 'depositByUid'){
-                    logObject[index].method = '충전';
-                }else{
-                    logObject[index].method = '신규';
-                }
-
-                if(logObject[index].payment.type === undefined || logObject[index].payment.type === null || logObject[index].payment.type === ''  ){
-                    logObject[index].payment.type = '없음';
-                } 
-                if(logObject[index].payment.type === 'cash' ){
-                    logObject[index].payment.type = '현금';
-                } 
-                if(logObject[index].payment.type === 'creditCard'){
-                    logObject[index].payment.type = '신용카드'
-                }
-                if(logObject[index].payment.type === 'coupon'){
-                    logObject[index].payment.type = '쿠폰'
-                }
-                if(logObject[index].payment.type === 'admin'){
-                    logObject[index].payment.type = '관리자'
-                } 
-
-                
-   
+            logObject[index].regDateFormat = moment(logObject[index].regDate).format('llll:ss')
+            logObject[index].timestampFormat = moment(logObject[index].timestamp).format('llll:ss')
         }
-        // console.log(chalk.greenBright('LogObject[] : '+logObject))
-        // console.log(chalk.greenBright('queryStartDate : '+ queryStartDate))
-        // console.log(chalk.greenBright('queryEndDate : '+ queryEndDate))
 
          //@ This is rendering that variables into view page 
         res.render('issueStatus', {
             reqSessionName,
-            reqStartDateCalendar,
-            reqEndDateCalendar ,
-            documentCount,
-            totalAmount,
-            cashAmount,
-            cardAmount,
+            searchData,
+            searchOrder,
             logObject : logObject,
             pageLimit
         })
 
-        // res.json({
-        //     logObject
-        // })
-    
+ 
     }catch(e){
         console.log(e)
         // res.render('error')
