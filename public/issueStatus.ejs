@@ -59,32 +59,19 @@
 			<button class="nav_button" onClick="location.href='/api/logout'">로그아웃</button>
 		</div>
 	</nav>
-	
+
 
 	<nav class="navbar sticky-top nav2" style="z-index: 998;">
 		<div class="container ">
-			<div style="float: left;">
-				<button class="nav2_button mouse_cursor" onClick="location.href='/saleList'">거래별 매출</button>
-				<button class="nav2_button mouse_cursor" onClick="location.href='/saleListDaily'">일별 매출</button>
-				<button class="nav2_button_selected mouse_cursor" onClick="location.href='/saleListMonthly'">월별 매출</button>
-			</div>
+
+			<div style="float: left;"> </div>
+
 
 			<div style="float: right;">
 				<ul>
 					<li>
-						<select class="selectpicker selectbox" data-style="btn-info" id="sel1" >
-							<option>2020년</option>
-							<option>2021년</option>
-							<option>2022년</option>
-							<option>2023년</option>
-							<option>2024년</option>
-							<option>2025년</option>
-							<option>2026년</option>
-							<option>2026년</option>
-							<option>2027년</option>
-							<option>2028년</option>
-							<option>2029년</option>
-							<option>2030년</option>
+						<select class="selectpicker selectbox" data-style="btn-info" id="sel1">
+							<option>발급일 순</option>
 						</select>
 					</li>
 					<li>
@@ -101,67 +88,45 @@
 	</div>
 
 
-
-	<div class="container background_div">
-		<table class="table table-borderless table_body">
-			<thead>
-				<tr class="table1_title_font">
-					<th class="" style="border: 0; padding-left:50px;">총 건수</th>
-					<th style="border: 0;">총 매출</th>
-					<th style="border: 0;">현금 매출</th>
-					<th style="border: 0; padding-left:50px;">카드 매출</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="table1_subtitle_font">
-					<td style="border: 0; padding-left:50px;"> <%= documentCount %> 건</td>
-					<td style="border: 0;"> <%= totalAmount %> 원</td>
-					<td style="border: 0;"> <%= cashAmount %> 원</td>
-					<td style="border: 0; padding-left:50px;"> <%= cardAmount %> 원</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-
 	<div id="LoadingWrapper" class="animate-bottom">
 
-		<div class="container background_div" align="center">
+		<div class="container background_div" align="center" style="margin-top: 20px;">
 			<table id="datasetTable" class="table datasetTable" style="" cellpadding="15">
 				<%if(logObject.length === 0){ %>
-					<tr scope="row" class="table_body_text">
-						<td colspan="" style="vertical-align: middle; " align="center">
-							<!-- <H5> No date result </H3> -->
-							<img src="images/list/not_result.gif" />
-						</td>
-					</tr>
+				<tr scope="row" class="table_body_text">
+					<td colspan="" style="vertical-align: middle; " align="center">
+						<!-- <H5> No date result </H3> -->
+						<img src="images/list/not_result.gif" />
+					</td>
+				</tr>
 				<%} else { %>
-					<thead>
-						<tr class="table2_title_font" >
-							<td align="center" scope="col" style="border: 0;">매출일자</td>
-							<td align="center" scope="col" style="border: 0;">총 매출</td>
-							<td align="center" scope="col" style="border: 0;">현금매출</td>
-							<td align="center" scope="col" style="border: 0;">카드매출</td>
-							<td align="center" scope="col" style="border: 0;">건수</td>
-						</tr>
-					</thead>
-					<tbody>
+				<thead>
+					<tr class="table2_title_font">
+						<td align="center" scope="col" style="border: 0;">발급번호</td>
+						<td align="center" scope="col" style="border: 0;">카드일련번호</td>
+						<td align="center" scope="col" style="border: 0;">발급일</td>
+						<td align="center" scope="col" style="border: 0;">잔액(포인트)</td>
+						<td align="center" scope="col" style="border: 0;">최근사용</td>
+					</tr>
+				</thead>
+				<tbody>
 
 
-						<% for(var i=0; i < logObject.length ; i++) { %>
-						<tr scope="row" class="table_body_text" >
-							<td align="center" style="vertical-align: middle; "><%= logObject[i].timestampFormat %></td>
-							<td align="center" style="vertical-align: middle;"> <%= logObject[i].amount %> </td>
-							<td align="center" style="vertical-align: middle;">  </td>
-							<td align="center" style="vertical-align: middle;">  </td>
-							<td align="center" style="vertical-align: middle;">  </td>
-							
-						</tr>
-						<% } %>
-						<tr
-							style="border-radius: 10px;background-color: #eaeeef; padding-bottom:5px; margin-bottom:5px; height:46px !important;">
-							<td colspan="6" align="center" class="mouse_cursor" onClick="moreView();"> + 더보기 </td>
-						</tr>
-					</tbody>
+					<% for(var i=0; i < logObject.length ; i++) { %>
+					<tr scope="row" class="table_body_text">
+						<td align="center" style="vertical-align: middle; "><%= logObject[i].timestampFormat %></td>
+						<td align="center" style="vertical-align: middle;"> <%= logObject[i].amount %> </td>
+						<td align="center" style="vertical-align: middle;"> </td>
+						<td align="center" style="vertical-align: middle;"> </td>
+						<td align="center" style="vertical-align: middle;"> </td>
+
+					</tr>
+					<% } %>
+					<tr
+						style="border-radius: 10px;background-color: #eaeeef; padding-bottom:5px; margin-bottom:5px; height:46px !important;">
+						<td colspan="6" align="center" class="mouse_cursor" onClick="moreView();"> + 더보기 </td>
+					</tr>
+				</tbody>
 
 				<% } %>
 			</table>
@@ -177,8 +142,7 @@
 	<script>
 		$(document).ready(function () {
 			alert('아직 준비중입니다. 조금만 기달려주세요.');
-
-			$('.dateCalendar').datepicker({ "dateFormat" : "YYYY-MM-DD" });
+			$('.dateCalendar').datepicker({ "dateFormat": "YYYY-MM-DD" });
 		})
 
 		let startDateCalendar = document.querySelector('#startDateCalendar');
@@ -197,12 +161,12 @@
 
 		function searchDate() {
 			currentPageLimit = <%= pageLimit %>
-			location.href = "/saleListMonthly?pageLimit=" + currentPageLimit ;
+				location.href = "/saleListMonthly?pageLimit=" + currentPageLimit;
 		}
 
 		function moreView() {
 			currentPageLimit = <%= pageLimit %> + 10
-			location.href = "/saleListMonthly?pageLimit=" + currentPageLimit ;
+			location.href = "/saleListMonthly?pageLimit=" + currentPageLimit;
 		}
 
 
