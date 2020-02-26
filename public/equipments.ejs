@@ -15,7 +15,7 @@
 	<!--===============================================================================================-->
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
 	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/issueStatus.css">
+	<link rel="stylesheet" type="text/css" href="css/equipments.css">
 	<!--===============================================================================================-->
 
 
@@ -60,24 +60,29 @@
 	<nav class="navbar sticky-top nav2" style="z-index: 998;">
 		<div class="container ">
 
-			<div style="float: left;"> </div>
+			<div style="float: left;">
+				<ul>
+					<li>
+						<div class="form-group fg--search">
+							<input type="text" class="input" id="searchData" placeholder="디바이스 ID 또는 상태"
+								value="<%= searchData %>">
+							<button type="submit" onclick="search();"><i class="fa fa-search"></i></button>
+						</div>
+					</li>
+					<li>
+						<select id="searchOrder" class="selectpicker selectbox" data-style="btn-info" id="sel1">
+							<option value="timeStampOrder" <%= searchOrder == "timeStampOrder" ? "selected" : ""   %>> 최근사용 순</option>
+							<option value="regDateOrder" <%= searchOrder == "regDateOrder" ? "selected" : ""   %>> 상태 순</option>
+					
+							</option>
+						</select>
+					</li>
+				</ul>
+			</div>
 
 
 			<div style="float: right;">
 				<ul>
-					<li>
-						<div class="form-group fg--search">
-							<input type="text" class="input" id="searchData" placeholder="카드번호 또는 잔액 검색" value="<%= searchData %>" >
-							<button type="submit" onclick="search();" ><i class="fa fa-search"></i></button>
-						  </div>
-					</li>
-					<li>
-						<select id="searchOrder" class="selectpicker selectbox" data-style="btn-info" id="sel1">
-							<option value="regDateOrder" <%= searchOrder == "regDateOrder" ? "selected" : ""   %> > 발급일 순 </option>
-							<option value="timeStampOrder" <%= searchOrder == "timeStampOrder" ? "selected" : ""   %> > 최근사용 순</option>
-							<option value="balanceOrder" <%= searchOrder == "balanceOrder" ? "selected" : ""   %>  >잔액 순</option>
-						</select>
-					</li>
 					<li>
 						<button type="submit" class="nav2_ul_li_button" id="calendarbutton" onClick="search();"> 조회
 						</button>
@@ -106,22 +111,21 @@
 				<%} else { %>
 				<thead>
 					<tr class="table2_title_font">
-						<td align="center" scope="col" style="border: 0;">발급번호</td>
-						<td align="center" scope="col" style="border: 0;">카드일련번호</td>
-						<td align="center" scope="col" style="border: 0;">발급일</td>
-						<td align="center" scope="col" style="border: 0;">잔액(포인트)</td>
+						<td align="center" scope="col" style="border: 0;">NO</td>
+						<td align="center" scope="col" style="border: 0;">디바이스 ID</td>
+						<td align="center" scope="col" style="border: 0; width:30%">장비명</td>
+						<td align="center" scope="col" style="border: 0;">상태</td>
 						<td align="center" scope="col" style="border: 0;">최근사용</td>
 					</tr>
 				</thead>
 				<tbody>
 					<% for(var i=0; i < logObject.length ; i++) { %>
 					<tr scope="row" class="table_body_text">
-						<td align="center" style="vertical-align: middle; "> <%= logObject[i].rowNumber %>  </td>
+						<td align="center" style="vertical-align: middle; "> <%= logObject[i].rowNumber %> </td>
 						<td align="center" style="vertical-align: middle;"> <%= logObject[i].uid %> </td>
-						<td align="center" style="vertical-align: middle;"> <%= logObject[i].regDateFormat %></td>
-						<td align="center" style="vertical-align: middle;"> 
-							<%= logObject[i].balance %> 
-							<span style="color: #999999;"> (<%= logObject[i].point %>) </span>
+						<td align="center" style="vertical-align: middle;">  </td>
+						<td align="center" style="vertical-align: middle;">
+							<span class="dot-active"></span> &nbsp; 작동중
 						</td>
 						<td align="center" style="vertical-align: middle;"> <%= logObject[i].timestampFormat %> </td>
 
@@ -146,7 +150,7 @@
 
 	<script>
 		$(document).ready(function () {
-			
+			alert("아직 준비중입니다. 조금만 기달려주세요.");
 		})
 
 		let searchData = document.querySelector('#searchData');
@@ -166,12 +170,12 @@
 
 		function search() {
 			currentPageLimit = <%= pageLimit %>;
-			location.href = "/issueStatus?pageLimit=" + currentPageLimit +"&searchData="+searchData.value+"&searchOrder="+searchOrder.value ;
+			location.href = "/equipments?pageLimit=" + currentPageLimit + "&searchData=" + searchData.value + "&searchOrder=" + searchOrder.value;
 		}
 
 		function moreView() {
 			currentPageLimit = <%= pageLimit %> + 10;
-			location.href = "/issueStatus?pageLimit=" + currentPageLimit +"&searchData="+searchData.value+"&searchOrder="+searchOrder.value;
+			location.href = "/equipments?pageLimit=" + currentPageLimit + "&searchData=" + searchData.value + "&searchOrder=" + searchOrder.value;
 		}
 
 

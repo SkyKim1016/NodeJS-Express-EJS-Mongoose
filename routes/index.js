@@ -544,9 +544,130 @@ router.get('/saleListMonthly', auth, async(req,res) => {
 
 
 
+//@  equipments 
+router.get('/equipments', auth, async(req,res) => {
+
+    let reqSessionName = req.session.name
+
+    let searchData= req.query.searchData;
+    let searchDataToInt 
+
+    let searchOrder= req.query.searchOrder;
+    let pageLimit = parseInt(req.query.pageLimit) || 10;
+
+    let documentCount=0 , tempRowNumber=0
+
+    let logObject 
+
+    moment.locale('KO');  
+
+    try{
+        
+        searchDataToInt = parseInt(searchData)
+        console.log(chalk.redBright('searchDataToInt : '+searchDataToInt))
+
+        //@First Query 
+        //This is counting of record
+        documentCount = await Tag.find({}).countDocuments()
+
+
+       if(searchData) {
+            // This is getting page datas 
+            if(searchOrder === 'regDateOrder' ){
+                if(Number.isInteger(searchDataToInt)){
+                    logObject = await Tag.find({ 
+                        $or : [
+                            {
+                                uid: {$regex: searchData} 
+                            },
+                            {
+                                balance: parseInt(searchData)
+                            
+                            }
+                        ] 
+                    }).sort({regDate: -1}).limit(pageLimit)
+                }else{
+                    logObject = await Tag.find({  uid: {$regex: searchData} }).sort({regDate: -1}).limit(pageLimit)
+                }
+
+            }else if(searchOrder === 'balanceOrder'){
+                if(Number.isInteger(searchDataToInt)){
+                    logObject = await Tag.find({ 
+                        $or : [
+                            {
+                                uid: {$regex: searchData} 
+                            },
+                            {
+                                balance: parseInt(searchData)
+                            
+                            }
+                        ] 
+                    }).sort({regDate: -1}).limit(pageLimit)
+                }else{
+                    logObject = await Tag.find({  uid: {$regex: searchData} }).sort({balance: -1}).limit(pageLimit)
+                }
+            }else{
+                if(Number.isInteger(searchDataToInt)){
+                    logObject = await Tag.find({ 
+                        $or : [
+                            {
+                                uid: {$regex: searchData} 
+                            },
+                            {
+                                balance: parseInt(searchData)
+                            
+                            }
+                        ] 
+                    }).sort({regDate: -1}).limit(pageLimit)
+                }else{
+                    logObject = await Tag.find({  uid: {$regex: searchData} }).sort({timestamp: -1}).limit(pageLimit)
+                }
+            }
+        }else { // This is excute when condition which req.query.searchData is empty 
+            if(searchOrder === 'regDateOrder' ){
+                logObject = await Tag.find({}).sort({regDate: -1}).limit(pageLimit)
+            }else if(searchOrder === 'balanceOrder'){
+                logObject = await Tag.find({}).sort({balance: -1}).limit(pageLimit)
+            }else{
+                logObject = await Tag.find({}).sort({timestamp: -1}).limit(pageLimit)
+            }
+        }
+
+        for(index in logObject){
+            
+            //if(logObject[index].rowNumber == undefined || logObject[index].rowNumber === null || logObject[index].rowNumber == '' )
+            if(tempRowNumber == 0 ){
+                tempRowNumber = documentCount
+            }
+            logObject[index].rowNumber = tempRowNumber
+            tempRowNumber =  tempRowNumber -1
+            
+
+            logObject[index].regDateFormat = moment(logObject[index].regDate).format('llll:ss')
+            logObject[index].timestampFormat = moment(logObject[index].timestamp).format('llll:ss')
+        }
+
+         //@ This is rendering that variables into view page 
+        res.render('equipments', {
+            reqSessionName,
+            searchData,
+            searchOrder,
+            logObject : logObject,
+            pageLimit
+        })
+
+ 
+    }catch(e){
+        console.log(e)
+        // res.render('error')
+    }
+    
+})
+
+
 
 //@  issueStatus 
-router.get('/issueStatus', async(req,res) => {
+router.get('/issueStatus', auth, async(req,res) => {
 
     let reqSessionName = req.session.name
 
