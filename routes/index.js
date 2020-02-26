@@ -546,11 +546,13 @@ router.get('/saleListMonthly', auth, async(req,res) => {
 
 
 //@  issueStatus 
-router.get('/issueStatus', auth, async(req,res) => {
+router.get('/issueStatus', async(req,res) => {
 
     let reqSessionName = req.session.name
 
     let searchData= req.query.searchData;
+    let searchDataToInt 
+
     let searchOrder= req.query.searchOrder;
     let pageLimit = parseInt(req.query.pageLimit) || 10;
 
@@ -562,6 +564,8 @@ router.get('/issueStatus', auth, async(req,res) => {
 
     try{
         
+        searchDataToInt = parseInt(searchData)
+        console.log(chalk.redBright('searchDataToInt : '+searchDataToInt))
 
         //@First Query 
         //This is counting of record
@@ -571,13 +575,56 @@ router.get('/issueStatus', auth, async(req,res) => {
        if(searchData) {
             // This is getting page datas 
             if(searchOrder === 'regDateOrder' ){
-                logObject = await Tag.find({}).sort({regDate: -1}).limit(pageLimit)
+                if(Number.isInteger(searchDataToInt)){
+                    logObject = await Tag.find({ 
+                        $or : [
+                            {
+                                uid: {$regex: searchData} 
+                            },
+                            {
+                                balance: parseInt(searchData)
+                            
+                            }
+                        ] 
+                    }).sort({regDate: -1}).limit(pageLimit)
+                }else{
+                    logObject = await Tag.find({  uid: {$regex: searchData} }).sort({regDate: -1}).limit(pageLimit)
+                }
+
             }else if(searchOrder === 'balanceOrder'){
-                logObject = await Tag.find({}).sort({balance: -1}).limit(pageLimit)
+                if(Number.isInteger(searchDataToInt)){
+                    logObject = await Tag.find({ 
+                        $or : [
+                            {
+                                uid: {$regex: searchData} 
+                            },
+                            {
+                                balance: parseInt(searchData)
+                            
+                            }
+                        ] 
+                    }).sort({regDate: -1}).limit(pageLimit)
+                }else{
+                    logObject = await Tag.find({  uid: {$regex: searchData} }).sort({balance: -1}).limit(pageLimit)
+                }
             }else{
-                logObject = await Tag.find({}).sort({timestamp: -1}).limit(pageLimit)
+                if(Number.isInteger(searchDataToInt)){
+                    logObject = await Tag.find({ 
+                        $or : [
+                            {
+                                uid: {$regex: searchData} 
+                            },
+                            {
+                                balance: parseInt(searchData)
+                            
+                            }
+                        ] 
+                    }).sort({regDate: -1}).limit(pageLimit)
+                }else{
+                    logObject = await Tag.find({  uid: {$regex: searchData} }).sort({timestamp: -1}).limit(pageLimit)
+                }
             }
-        }else {
+        }else { // This is excute when condition which req.query.searchData is empty 
             if(searchOrder === 'regDateOrder' ){
                 logObject = await Tag.find({}).sort({regDate: -1}).limit(pageLimit)
             }else if(searchOrder === 'balanceOrder'){

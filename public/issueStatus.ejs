@@ -66,10 +66,16 @@
 			<div style="float: right;">
 				<ul>
 					<li>
+						<div class="form-group fg--search">
+							<input type="text" class="input" id="searchData" placeholder="카드번호 또는 잔액 검색" value="<%= searchData %>" >
+							<button type="submit" onclick="search();" ><i class="fa fa-search"></i></button>
+						  </div>
+					</li>
+					<li>
 						<select id="searchOrder" class="selectpicker selectbox" data-style="btn-info" id="sel1">
-							<option value="regDateOrder">발급일 순</option>
-							<option value="timeStampOrder">최근사용 순</option>
-							<option value="balanceOrder">잔액 순</option>
+							<option value="regDateOrder" <%= searchOrder == "regDateOrder" ? "selected" : ""   %> > 발급일 순 </option>
+							<option value="timeStampOrder" <%= searchOrder == "timeStampOrder" ? "selected" : ""   %> > 최근사용 순</option>
+							<option value="balanceOrder" <%= searchOrder == "balanceOrder" ? "selected" : ""   %>  >잔액 순</option>
 						</select>
 					</li>
 					<li>
@@ -143,8 +149,8 @@
 			
 		})
 
-		// let searchData = document.querySelector('#searchData');
-		let searchData = '';
+		let searchData = document.querySelector('#searchData');
+		// let searchData = '';
 		let searchOrder = document.querySelector('#searchOrder');
 
 		let delay; //This is for Loading animation
