@@ -42,7 +42,7 @@
 					<a href="/saleList">매출조회</a>
 				</li>
 				<li>
-					<a href="#" onClick="alert('아직 준비중입니다. 조금만 기달려주세요.');">사용내역</a>
+					<a href="/historyOfUses" >사용내역</a>
 				</li>
 				<li>
 					<a href="/equipments">장비관리</a>
@@ -72,7 +72,7 @@
 						  </div>
 					</li>
 					<li>
-						<select id="searchOrder" class="selectpicker selectbox" data-style="btn-info" id="sel1">
+						<select id="searchOrder" class="selectpicker selectbox" data-style="btn-info" >
 							<option value="regDateOrder" <%= searchOrder == "regDateOrder" ? "selected" : ""   %> > 발급일 순 </option>
 							<option value="timeStampOrder" <%= searchOrder == "timeStampOrder" ? "selected" : ""   %> > 최근사용 순</option>
 							<option value="balanceOrder" <%= searchOrder == "balanceOrder" ? "selected" : ""   %>  >잔액 순</option>

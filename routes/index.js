@@ -544,6 +544,102 @@ router.get('/saleListMonthly', auth, async(req,res) => {
 
 
 
+
+//@  saleListPage
+router.get('/historyOfUses', async(req,res) => {
+
+    let reqSessionName = req.session.name
+
+    let totalAmount=0 , cashAmount=0 , cardAmount=0
+    let documentCount=0 , tempRowNumber=0
+
+    let pageLimit = parseInt(req.query.pageLimit) || 10;
+
+    let reqStartDateCalendar = req.query.startDateCalendar;
+    let reqEndDateCalendar = req.query.endDateCalendar
+
+    let dateNow = moment(Date.now()).format('MM/DD/YYYY')
+    // moment.locale('KO');  
+
+    let queryStartDate, queryEndDate;
+
+    // let match={}
+    // if(req.query.requestDate){
+    //     match.timestamp = req.query.requestDate === 'true'
+    // }
+
+    try{
+        
+        //@ [1] This is date setting which recieved calendar date from view page 
+        if(reqStartDateCalendar === '' || typeof reqStartDateCalendar === 'undefined' ){
+            queryStartDate = '01/01/2020'
+        }else{
+            queryStartDate = moment(reqStartDateCalendar).utcOffset('+0700')
+            queryStartDate = queryStartDate
+        }
+    
+        if(reqEndDateCalendar === '' || typeof reqEndDateCalendar === 'undefined' ){
+            queryEndDate = '12/12/2020'
+        }else{
+            queryEndDate = moment(reqEndDateCalendar).utcOffset('+0700')
+            queryEndDate = queryEndDate.add(1,'day')
+        }
+
+        //@ [2] First Query 
+        //This is counting of record
+        documentCount = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate } }).countDocuments()
+
+
+
+         //@ [3] Third Query
+        // This is getting page datas 
+        let logObject = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate } }).sort({timestamp: -1}).limit(pageLimit)
+        for(index in logObject){
+            
+           
+
+            //if(logObject[index].rowNumber == undefined || logObject[index].rowNumber === null || logObject[index].rowNumber == '' )
+            if(tempRowNumber == 0 ){
+                tempRowNumber = documentCount
+            }
+            logObject[index].rowNumber = tempRowNumber
+            tempRowNumber =  tempRowNumber -1
+            
+
+
+            logObject[index].timestampFormat = moment(logObject[index].timestamp).format('YYYY/MM/DD hh:mm:ss') 
+
+
+                
+   
+        }
+        // console.log(chalk.greenBright('LogObject[] : '+logObject))
+        // console.log(chalk.greenBright('queryStartDate : '+ queryStartDate))
+        // console.log(chalk.greenBright('queryEndDate : '+ queryEndDate))
+
+         //@ This is rendering that variables into view page 
+        res.render('historyOfUses', {
+            reqSessionName,
+            reqStartDateCalendar,
+            reqEndDateCalendar ,
+            documentCount,
+            logObject : logObject,
+            pageLimit
+        })
+
+        // res.json({
+        //     logObject
+        // })
+    
+    }catch(e){
+        console.log(e)
+        // res.render('error')
+    }
+    
+})
+
+
+
 //@  equipments 
 router.get('/equipments', auth, async(req,res) => {
 

@@ -13,7 +13,7 @@
 	<!--===============================================================================================-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/saleList.css">
+	<link rel="stylesheet" type="text/css" href="css/hisotryOfUses.css">
 	<!--===============================================================================================-->
 
 
@@ -62,9 +62,9 @@
 	<nav class="navbar sticky-top nav2" style="z-index: 998;">
 		<div class="container ">
 			<div style="float: left;">
-				<button class="nav2_button_selected mouse_cursor" onClick="location.href='/saleList'">거래별 매출</button>
+				<!-- <button class="nav2_button_selected mouse_cursor" onClick="location.href='/saleList'">거래별 매출</button>
 				<button class="nav2_button mouse_cursor" onClick="location.href='/saleListDaily'">일별 매출</button>
-				<button class="nav2_button mouse_cursor" onClick="location.href='/saleListMonthly'">월별 매출</button>
+				<button class="nav2_button mouse_cursor" onClick="location.href='/saleListMonthly'">월별 매출</button> -->
 			</div>
 
 
@@ -85,6 +85,13 @@
 						<input id="endDateCalendar" class="dp dateCalendar" value="<%= reqEndDateCalendar %>" />
 					</li>
 					<li>
+						<select id="searchOrder" class="selectpicker selectbox" data-style="btn-info" >
+							<option value="regDateOrder" > 발급일 순 </option>
+							<option value="timeStampOrder" > 최근사용 순</option>
+							<option value="balanceOrder" > 잔액 순</option>
+						</select>
+					</li>
+					<li>
 						<button type="submit" class="nav2_ul_li_button" id="calendarbutton" onClick="searchDate();"> 조회
 						</button>
 					</li>
@@ -100,27 +107,6 @@
 
 
 
-	<div class="container background_div">
-		<table class="table table-borderless table_body">
-			<thead>
-				<tr class="table1_title_font">
-					<th class="" style="border: 0; padding-left:50px;">총 건수</th>
-					<th style="border: 0;">총 매출</th>
-					<th style="border: 0;">현금 매출</th>
-					<th style="border: 0; padding-left:50px;">카드 매출</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="table1_subtitle_font">
-					<td style="border: 0; padding-left:50px;"> <%= documentCount %> 건</td>
-					<td style="border: 0;"> <%= totalAmount %> 원</td>
-					<td style="border: 0;"> <%= cashAmount %> 원</td>
-					<td style="border: 0; padding-left:50px;"> <%= cardAmount %> 원</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-
 	<div id="LoadingWrapper" class="animate-bottom">
 
 		<div class="container background_div" align="center">
@@ -135,14 +121,11 @@
 				<%} else { %>
 				<thead>
 					<tr class="table2_title_font">
-						<td align="center" scope="col" style="border: 0;">NO</td>
-						<td align="center" scope="col" style="border: 0;">매출일시</td>
+						<td align="center" scope="col" style="border: 0;">사용일시</td>
+						<td align="center" scope="col" style="border: 0;">장비명</td>
 						<td align="center" scope="col" style="border: 0;">고유번호</td>
-						<td align="center" scope="col" style="border: 0;">구분</td>
-						<td align="center" scope="col" style="border: 0;">결제금액 <span
-								style="color: #999999;">(추가포인트)</span>
-						</td>
-						<td align="center" scope="col" style="border: 0;">결제수단</td>
+						<td align="center" scope="col" style="border: 0;">카드일련번호</td>
+						<td align="center" scope="col" style="border: 0;">사용금액 </td>
 					</tr>
 				</thead>
 				<tbody>
@@ -150,25 +133,11 @@
 
 					<% for(var i=0; i < logObject.length ; i++) { %>
 					<tr scope="row" class="table_body_text">
-						<td align="center" style="vertical-align: middle; "> <%= logObject[i].rowNumber%></td>
-						<td align="center" style="vertical-align: middle;"><%= logObject[i].timestampFormat %></td>
+						<td align="center" style="vertical-align: middle; "> <%= logObject[i].timestampFormat%></td>
+						<td align="center" style="vertical-align: middle;"><%= logObject[i].deviceId %></td>
 						<td align="center" style="vertical-align: middle;"> <%= logObject[i].uid %></td>
-						<td align="center" style="vertical-align: middle;"> <%= logObject[i].method %> </td>
-						<td align="center" style="vertical-align: middle;">
-							<%= logObject[i].amount %>
-							<span style="color: #999999;">(<%= logObject[i].bonusPoint%>) </span>
-						</td>
-						<td align="center" style="vertical-align: middle;">
-							<% if(logObject[i].payment.type == "신용카드" ) { %>
-							<button class="payment_button color_card %> "><%= logObject[i].payment.type %></button>
-							<% } else if (logObject[i].payment.type == "쿠폰" ) { %>
-							<button class="payment_button color_coupon %> "><%= logObject[i].payment.type %></button>
-							<% } else if (logObject[i].payment.type == "관리자" ) { %>
-							<button class="payment_button color_admin %> "><%= logObject[i].payment.type %></button>
-							<% } else { %>
-							<button class="payment_button color_cash%> ">현금</button>
-							<% } %>
-						</td>
+						<td align="center" style="vertical-align: middle;"> </td>
+						<td align="center" style="vertical-align: middle;"> <%= logObject[i].payment %> </td>
 					</tr>
 					<% } %>
 					<tr
@@ -209,13 +178,16 @@
 
 		function searchDate() {
 			currentPageLimit = <%= pageLimit %>
-				location.href = "/saleList?pageLimit=" + currentPageLimit + "&startDateCalendar=" + startDateCalendar.value + "&endDateCalendar=" + endDateCalendar.value;
+				location.href = "/historyOfUses?pageLimit=" + currentPageLimit + "&startDateCalendar=" + startDateCalendar.value + "&endDateCalendar=" + endDateCalendar.value;
 		}
 
 		function moreView() {
 			currentPageLimit = <%= pageLimit %> + 10
-			location.href = "/saleList?pageLimit=" + currentPageLimit + "&startDateCalendar=" + startDateCalendar.value + "&endDateCalendar=" + endDateCalendar.value;
+			location.href = "/historyOfUses?pageLimit=" + currentPageLimit + "&startDateCalendar=" + startDateCalendar.value + "&endDateCalendar=" + endDateCalendar.value;
 		}
+
+
+
 
 
 		/*
