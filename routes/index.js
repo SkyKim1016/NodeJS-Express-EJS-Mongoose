@@ -126,7 +126,7 @@ router.get('/api/logout', function(req, res){
 
 
 //@  saleListPage
-router.get('/saleList', async(req,res) => {
+router.get('/saleList',auth, async(req,res) => {
 
     let reqSessionName = req.session.name
 
@@ -546,7 +546,7 @@ router.get('/saleListMonthly', auth, async(req,res) => {
 
 
 //@  saleListPage
-router.get('/historyOfUses', async(req,res) => {
+router.get('/historyOfUses',auth, async(req,res) => {
 
     let reqSessionName = req.session.name
     
@@ -635,7 +635,7 @@ router.get('/historyOfUses', async(req,res) => {
 
 
 //@  equipments 
-router.get('/equipments', auth, async(req,res) => {
+router.get('/equipments',auth, async(req,res) => {
 
     let reqSessionName = req.session.name
 
@@ -715,11 +715,27 @@ router.get('/equipments', auth, async(req,res) => {
             }
         }else { // This is excute when condition which req.query.searchData is empty 
             if(searchOrder === 'regDateOrder' ){
-                logObject = await Log.find({}).sort({regDate: -1}).limit(pageLimit)
+                logObject = await Log.aggregate( [ { 
+                    $group : {
+                         _id : "$deviceId", 
+                         day:{ $last: "$timestamp" },
+                    } 
+                } ] )
+                .sort({regDate: -1}).limit(pageLimit)
             }else if(searchOrder === 'balanceOrder'){
-                logObject = await Log.find({}).sort({balance: -1}).limit(pageLimit)
+                logObject = await Log.aggregate( [ { 
+                    $group : {
+                         _id : "$deviceId", 
+                         day:{ $last: "$timestamp" },
+                    } 
+                } ] ).sort({balance: -1}).limit(pageLimit)
             }else{
-                logObject = await Log.find({}).sort({timestamp: -1}).limit(pageLimit)
+                logObject = await Log.aggregate( [ { 
+                    $group : {
+                         _id : "$deviceId", 
+                         day:{ $last: "$timestamp" },
+                    } 
+                } ] ).sort({timestamp: -1}).limit(pageLimit)
             }
         }
 
@@ -727,10 +743,10 @@ router.get('/equipments', auth, async(req,res) => {
             
             //if(logObject[index].rowNumber == undefined || logObject[index].rowNumber === null || logObject[index].rowNumber == '' )
             if(tempRowNumber == 0 ){
-                tempRowNumber = documentCount
+                tempRowNumber = 1
             }
             logObject[index].rowNumber = tempRowNumber
-            tempRowNumber =  tempRowNumber -1
+            tempRowNumber =  tempRowNumber +1
             
 
             logObject[index].regDateFormat = moment(logObject[index].regDate).format('llll:ss')
