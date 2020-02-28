@@ -140,10 +140,20 @@ a:hover {
 }
 
 .selectbox{
-  width: 100px; 
-  background:#ffffff;
+  width: 125px;
+  height: 34px;
   border-radius: 5px;
-  border: solid 1px #d0d4d7; 
+  border: solid 1px #d0d4d7;
+  background-color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.21;
+  letter-spacing: normal;
+  color: #424242;
+  
   text-align-last:center;
 }
 

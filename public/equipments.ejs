@@ -73,22 +73,20 @@
 						<select id="searchOrder" class="selectpicker selectbox" data-style="btn-info" id="sel1">
 							<option value="timeStampOrder" <%= searchOrder == "timeStampOrder" ? "selected" : ""   %>> 최근사용 순</option>
 							<option value="regDateOrder" <%= searchOrder == "regDateOrder" ? "selected" : ""   %>> 상태 순</option>
-					
-							</option>
 						</select>
 					</li>
 				</ul>
 			</div>
 
-
-			<div style="float: right;">
+		
+			<div style="float: right; margin-top: -15px;">
 				<ul>
-					<li>
-						<button type="submit" class="nav2_ul_li_button" id="calendarbutton" onClick="search();"> 조회
+						<button type="submit" class="nav2_ul_li_button" id="calendarbutton" onClick="searchDate();"> 조회
 						</button>
 					</li>
 				</ul>
 			</div>
+
 		</div>
 	</nav>
 
@@ -122,7 +120,7 @@
 					<% for(var i=0; i < logObject.length ; i++) { %>
 					<tr scope="row" class="table_body_text">
 						<td align="center" style="vertical-align: middle; "> <%= logObject[i].rowNumber %> </td>
-						<td align="center" style="vertical-align: middle;"> <%= logObject[i].uid %> </td>
+						<td align="center" style="vertical-align: middle;"> <%= logObject[i].deviceId %> </td>
 						<td align="center" style="vertical-align: middle;">  </td>
 						<td align="center" style="vertical-align: middle;">
 							<span class="dot-active"></span> &nbsp; 작동중
@@ -150,7 +148,7 @@
 
 	<script>
 		$(document).ready(function () {
-			alert("아직 준비중입니다. 조금만 기달려주세요.");
+			
 		})
 
 		let searchData = document.querySelector('#searchData');

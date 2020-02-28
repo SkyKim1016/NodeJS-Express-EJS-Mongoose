@@ -86,9 +86,8 @@
 					</li>
 					<li>
 						<select id="searchOrder" class="selectpicker selectbox" data-style="btn-info" >
-							<option value="regDateOrder" > 발급일 순 </option>
-							<option value="timeStampOrder" > 최근사용 순</option>
-							<option value="balanceOrder" > 잔액 순</option>
+							<option value="timeStampOrder" <%= searchOrder == "timeStampOrder" ? "selected" : ""   %>  > 사용일시 순</option>
+							<option value="paymentOrder" <%= searchOrder == "paymentOrder" ? "selected" : ""   %>  >  사용금액 순</option>
 						</select>
 					</li>
 					<li>
@@ -158,14 +157,17 @@
 	<!--===============================================================================================-->
 
 	<script>
-		$(document).ready(function () {
-			$('.dateCalendar').datepicker({ "dateFormat": "YYYY-MM-DD" });
-		})
-
+	
 		let startDateCalendar = document.querySelector('#startDateCalendar');
 		let endDateCalendar = document.querySelector('#endDateCalendar');
 
+		let searchOrder = document.querySelector('#searchOrder');
+
 		let delay; //This is for Loading animation
+
+		$(document).ready(function () {
+			$('.dateCalendar').datepicker({ "dateFormat": "YYYY-MM-DD" });
+		})
 
 		function loadingDelay() {
 			delay = setTimeout(showPage, 800);
@@ -178,36 +180,15 @@
 
 		function searchDate() {
 			currentPageLimit = <%= pageLimit %>
-				location.href = "/historyOfUses?pageLimit=" + currentPageLimit + "&startDateCalendar=" + startDateCalendar.value + "&endDateCalendar=" + endDateCalendar.value;
+				location.href = "/historyOfUses?pageLimit=" + currentPageLimit + "&startDateCalendar=" + startDateCalendar.value + "&endDateCalendar=" + endDateCalendar.value + "&searchOrder=" + searchOrder.value;
 		}
 
 		function moreView() {
 			currentPageLimit = <%= pageLimit %> + 10
-			location.href = "/historyOfUses?pageLimit=" + currentPageLimit + "&startDateCalendar=" + startDateCalendar.value + "&endDateCalendar=" + endDateCalendar.value;
+			location.href = "/historyOfUses?pageLimit=" + currentPageLimit + "&startDateCalendar=" + startDateCalendar.value + "&endDateCalendar=" + endDateCalendar.value + "&searchOrder=" + searchOrder.value;
 		}
 
 
-
-
-
-		/*
-		$(document).ready(function () {
-
-			$('.btn btn-outline-secondary border-left-0').css( 'height', 38 + 'px !important' )
-			$('.body_container2_div3_span_timestamp').each(function (index) {
-				timestamp = $("#timestamp" + index).innerHTML
-				timestampFormat = moment(timestamp).format('YYYY.MM.DD HH:MM')
-
-				$('#timestamp' + index).text(timestampFormat)
-			})
-
-		});
-		*/
-
-
-		// $('#calendarbutton').click(function () {
-		// 	('#datepicker').datepicker('show');
-		// });
 
 
 

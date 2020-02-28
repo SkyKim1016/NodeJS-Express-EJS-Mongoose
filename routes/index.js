@@ -549,6 +549,7 @@ router.get('/saleListMonthly', auth, async(req,res) => {
 router.get('/historyOfUses', async(req,res) => {
 
     let reqSessionName = req.session.name
+    
 
     let totalAmount=0 , cashAmount=0 , cardAmount=0
     let documentCount=0 , tempRowNumber=0
@@ -558,10 +559,12 @@ router.get('/historyOfUses', async(req,res) => {
     let reqStartDateCalendar = req.query.startDateCalendar;
     let reqEndDateCalendar = req.query.endDateCalendar
 
-    let dateNow = moment(Date.now()).format('MM/DD/YYYY')
-    // moment.locale('KO');  
+    let searchOrder = req.query.searchOrder;
 
     let queryStartDate, queryEndDate;
+    
+
+    let LogObject
 
     // let match={}
     // if(req.query.requestDate){
@@ -585,44 +588,35 @@ router.get('/historyOfUses', async(req,res) => {
             queryEndDate = queryEndDate.add(1,'day')
         }
 
-        //@ [2] First Query 
-        //This is counting of record
-        documentCount = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate } }).countDocuments()
+    
+        // This is getting page datas
+        if(searchOrder === 'paymentOrder' ){
+             logObject = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate } }).sort({ payment: -1}).limit(pageLimit)
+        }
+        else{
+             logObject = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate } }).sort({ timestamp: -1}).limit(pageLimit)
+        } 
 
-
-
-         //@ [3] Third Query
-        // This is getting page datas 
-        let logObject = await Log.find({ timestamp : {$gte : queryStartDate ,  $lte : queryEndDate } }).sort({timestamp: -1}).limit(pageLimit)
         for(index in logObject){
             
-           
-
             //if(logObject[index].rowNumber == undefined || logObject[index].rowNumber === null || logObject[index].rowNumber == '' )
             if(tempRowNumber == 0 ){
                 tempRowNumber = documentCount
             }
             logObject[index].rowNumber = tempRowNumber
             tempRowNumber =  tempRowNumber -1
-            
 
 
             logObject[index].timestampFormat = moment(logObject[index].timestamp).format('YYYY/MM/DD hh:mm:ss') 
 
-
-                
-   
-        }
-        // console.log(chalk.greenBright('LogObject[] : '+logObject))
-        // console.log(chalk.greenBright('queryStartDate : '+ queryStartDate))
-        // console.log(chalk.greenBright('queryEndDate : '+ queryEndDate))
+        } 
 
          //@ This is rendering that variables into view page 
         res.render('historyOfUses', {
             reqSessionName,
             reqStartDateCalendar,
             reqEndDateCalendar ,
-            documentCount,
+            searchOrder,
             logObject : logObject,
             pageLimit
         })
@@ -664,14 +658,14 @@ router.get('/equipments', auth, async(req,res) => {
 
         //@First Query 
         //This is counting of record
-        documentCount = await Tag.find({}).countDocuments()
+        documentCount = await Log.find({}).countDocuments()
 
 
        if(searchData) {
             // This is getting page datas 
             if(searchOrder === 'regDateOrder' ){
                 if(Number.isInteger(searchDataToInt)){
-                    logObject = await Tag.find({ 
+                    logObject = await Log.find({ 
                         $or : [
                             {
                                 uid: {$regex: searchData} 
@@ -683,12 +677,12 @@ router.get('/equipments', auth, async(req,res) => {
                         ] 
                     }).sort({regDate: -1}).limit(pageLimit)
                 }else{
-                    logObject = await Tag.find({  uid: {$regex: searchData} }).sort({regDate: -1}).limit(pageLimit)
+                    logObject = await Log.find({  uid: {$regex: searchData} }).sort({regDate: -1}).limit(pageLimit)
                 }
 
             }else if(searchOrder === 'balanceOrder'){
                 if(Number.isInteger(searchDataToInt)){
-                    logObject = await Tag.find({ 
+                    logObject = await Log.find({ 
                         $or : [
                             {
                                 uid: {$regex: searchData} 
@@ -700,11 +694,11 @@ router.get('/equipments', auth, async(req,res) => {
                         ] 
                     }).sort({regDate: -1}).limit(pageLimit)
                 }else{
-                    logObject = await Tag.find({  uid: {$regex: searchData} }).sort({balance: -1}).limit(pageLimit)
+                    logObject = await Log.find({  uid: {$regex: searchData} }).sort({balance: -1}).limit(pageLimit)
                 }
             }else{
                 if(Number.isInteger(searchDataToInt)){
-                    logObject = await Tag.find({ 
+                    logObject = await Log.find({ 
                         $or : [
                             {
                                 uid: {$regex: searchData} 
@@ -716,16 +710,16 @@ router.get('/equipments', auth, async(req,res) => {
                         ] 
                     }).sort({regDate: -1}).limit(pageLimit)
                 }else{
-                    logObject = await Tag.find({  uid: {$regex: searchData} }).sort({timestamp: -1}).limit(pageLimit)
+                    logObject = await Log.find({  uid: {$regex: searchData} }).sort({timestamp: -1}).limit(pageLimit)
                 }
             }
         }else { // This is excute when condition which req.query.searchData is empty 
             if(searchOrder === 'regDateOrder' ){
-                logObject = await Tag.find({}).sort({regDate: -1}).limit(pageLimit)
+                logObject = await Log.find({}).sort({regDate: -1}).limit(pageLimit)
             }else if(searchOrder === 'balanceOrder'){
-                logObject = await Tag.find({}).sort({balance: -1}).limit(pageLimit)
+                logObject = await Log.find({}).sort({balance: -1}).limit(pageLimit)
             }else{
-                logObject = await Tag.find({}).sort({timestamp: -1}).limit(pageLimit)
+                logObject = await Log.find({}).sort({timestamp: -1}).limit(pageLimit)
             }
         }
 
