@@ -38,7 +38,7 @@ mongoose.connect('mongodb://localhost/smartCoinDB', {
 }).then( ()=> console.log(chalk.blue.bold('Connected to mongoDB server')) )
 
 
-// [ CONFIGURE .hbs view engine ]
+// [ CONFIGURE .ejs view engine ]
 const publicDirectoryPath = path.join(__dirname, '/public/')
 app.use(express.static(publicDirectoryPath))
     .set('views',publicDirectoryPath) // Setting handlebar engine and views location
